@@ -20,10 +20,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="controlHelp.h" />
+    <ClInclude Include="game.h" />
     <ClInclude Include="helpScreen.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="license.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="MyVector3.h" />
     <ClInclude Include="pickUpSystem.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="upgrade.h" />
@@ -31,10 +33,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="controlHelp.cpp" />
+    <ClCompile Include="game.cpp" />
     <ClCompile Include="helpScreen.cpp" />
     <ClCompile Include="level.cpp" />
     <ClCompile Include="license.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="upgrade.cpp" />
@@ -98,7 +103,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SFML_SDK)/include</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SFML_SDK)/lib</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -116,10 +125,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SFML_SDK)/include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(SFML_SDK)/lib</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
