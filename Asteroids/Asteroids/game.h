@@ -7,7 +7,7 @@
 #include <time.h> 
 #include "Game.h"
 
-// Andrew Bashorum
+// Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
 
