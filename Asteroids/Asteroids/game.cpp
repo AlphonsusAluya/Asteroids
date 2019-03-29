@@ -1,16 +1,14 @@
-#include "game.h"
-
-
-
+#include "license.h"
 #include "Game.h"
 #include <iostream>
-
+#include "enum.h"
 
 
 Game::Game() :
 	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
+	Game::currentState = GameState::licenseScreen;
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 }
@@ -60,6 +58,13 @@ void Game::processEvents()
 				m_exitGame = true;
 			}
 		}
+		if (Game::currentState == GameState::licenseScreen)
+		{
+			if (sf::Keyboard::isKeyPressed)
+			{
+				Game::currentState = GameState::mainMenu;
+			}
+		}
 	}
 }
 
@@ -83,6 +88,9 @@ void Game::render()
 	m_window.clear(sf::Color::White);
 	m_window.draw(m_welcomeMessage);
 	m_window.draw(m_logoSprite);
+
+	license.draw(m_window);
+	
 	m_window.display();
 }
 
