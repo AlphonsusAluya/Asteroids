@@ -10,14 +10,10 @@ License::License()
 
 }
 
-License::~License()
-{
-
-}
 
 void License::init(sf::Font & font)
 {
-	
+
 	message.setFont(font);
 	message.setString("Asteroids by Heskey and Alph");
 

@@ -58,13 +58,7 @@ void Game::processEvents()
 				m_exitGame = true;
 			}
 		}
-		if (Game::currentState == GameState::licenseScreen)
-		{
-			if (sf::Keyboard::isKeyPressed)
-			{
-				Game::currentState = GameState::mainMenu;
-			}
-		}
+		changeState();
 	}
 }
 
@@ -89,8 +83,8 @@ void Game::render()
 	m_window.draw(m_welcomeMessage);
 	m_window.draw(m_logoSprite);
 
-	license.draw(m_window);
-	
+	licenseScreen.draw(m_window);
+	splash.draw(m_window);
 	m_window.display();
 }
 
@@ -111,7 +105,8 @@ void Game::setupFontAndText()
 	m_welcomeMessage.setOutlineColor(sf::Color::Red);
 	m_welcomeMessage.setFillColor(sf::Color::Black);
 	m_welcomeMessage.setOutlineThickness(3.0f);
-
+	splash.init(m_ArialBlackfont);
+	licenseScreen.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -126,4 +121,23 @@ void Game::setupSprite()
 	}
 	m_logoSprite.setTexture(m_logoTexture);
 	m_logoSprite.setPosition(300.0f, 180.0f);
+}
+
+void Game::changeState()
+{
+	if (Game::currentState == GameState::licenseScreen)
+	{
+		if (sf::Keyboard::isKeyPressed)
+		{
+			Game::currentState = GameState::splashScreen;
+		}
+	}
+
+	if (Game::currentState == GameState::splashScreen)
+	{
+		if (sf::Keyboard::isKeyPressed)
+		{
+			Game::currentState = GameState::mainMenu;
+		}
+	}
 }
