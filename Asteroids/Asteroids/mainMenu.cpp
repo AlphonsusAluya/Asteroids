@@ -25,4 +25,3 @@ void MainMenu::draw(sf::RenderWindow & window)
 {
 	window.draw(message);
 }
-

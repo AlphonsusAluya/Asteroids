@@ -1,6 +1,7 @@
 ﻿  game.cpp
+c:\users\fiercepc\desktop\new folder\18-asteroids-andrew-and-alphonsus\asteroids\asteroids\game.cpp(62): warning C4551: function call missing argument list
+  helpScreen.cpp
   main.cpp
-  mainMenu.cpp
   splash.cpp
   Generating Code...
-  Asteroids.vcxproj -> C:\Users\c00238900\Desktop\New folder\18-asteroids-andrew-and-alphonsus\Asteroids\Debug\Asteroids.exe
+  Asteroids.vcxproj -> C:\Users\FiercePC\Desktop\New folder\18-asteroids-andrew-and-alphonsus\Asteroids\Debug\Asteroids.exe

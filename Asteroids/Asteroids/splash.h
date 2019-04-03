@@ -16,7 +16,7 @@ public:
 
 
 	sf::Text message;
-
+	sf::Text pressAnyKey;
 	void init(sf::Font &font);
 	void draw(sf::RenderWindow &window);
 };

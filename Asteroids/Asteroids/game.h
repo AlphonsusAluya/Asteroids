@@ -9,7 +9,7 @@
 #include "enum.h"
 #include "splash.h"
 #include "mainMenu.h"
-
+#include "helpScreen.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -20,6 +20,7 @@ class Game
 	License license;
 	Splash splash;
 	MainMenu menu;
+	Help help;
 public:
 
 	GameState currentState;

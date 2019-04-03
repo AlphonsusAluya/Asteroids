@@ -59,16 +59,73 @@ void Game::processEvents()
 			   
 			if (currentState == GameState::SplashScreen)
 			{
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				if (sf::Keyboard::isKeyPressed)
 				{
 					currentState = GameState::MainMenuScreen;
 				}
 			}
+
 		}
-		
+		if (currentState == GameState::MainMenuScreen)
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				sf::Vector2i position = sf::Mouse::getPosition();
+
+				if ( position.y <= 310) // first button / start game
+				{
+					std::cout << "gameplay";
+					currentState = GameState::GamePlay;
+				}
+
+				if (position.y > 311 && position.y <= 400 ) // help menu
+				{
+					std::cout << "help";
+					currentState = GameState::HelpScreen;
+				}
+
+				if (position.y >= 401) // help menu
+				{
+					currentState = GameState::UpgradeScreen;
+				}
+			}
+		}
+
+		if (currentState == GameState::HelpScreen)
+		{
+			licenseTimer = 30;
+
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+			{
+				currentState = GameState::MainMenuScreen;
+			}
+
+			if (licenseTimer == 0)
+			{
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				{
+					sf::Vector2i position = sf::Mouse::getPosition();
+
+					if (position.y <= 310) // first button / start game
+					{
+						currentState = GameState::ControlHelp;
+					}
+
+					if (position.y > 311 && position.y <= 400) // help menu
+					{
+						currentState = GameState::PickUpHelp;
+					}
+
+					if (position.y >= 401) // help menu
+					{
+						currentState = GameState::UpgradeHelp;
+					}
+				}
+			}
+			
+		}
 	}
 }
-
 /// <summary>
 /// Update the game world
 /// </summary>
@@ -88,9 +145,6 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	//m_window.clear(sf::Color::White);
-	//m_window.draw(m_welcomeMessage);
-	//m_window.draw(m_logoSprite);
 	m_window.clear();
 	if (currentState == GameState::LicenseScreen)
 	{
@@ -105,6 +159,11 @@ void Game::render()
 	if (currentState == GameState::MainMenuScreen)
 	{
 		menu.draw(m_window);
+	}
+
+	if (currentState == GameState::HelpScreen)
+	{
+		help.draw(m_window);
 	}
 
 	m_window.display();
@@ -130,6 +189,7 @@ void Game::setupFontAndText()
 	splash.init(m_ArialBlackfont);
 	license.init(m_ArialBlackfont);
 	menu.init(m_ArialBlackfont);
+	help.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -154,10 +214,7 @@ void Game::changeState()
 		{	
 			currentState = GameState::SplashScreen;
 		}
-		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		//{
-		//	currentState = GameState::SplashScreen;
-		//}
+
 	}
 
 
