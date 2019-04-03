@@ -8,6 +8,8 @@
 #include "license.h"
 #include "enum.h"
 #include "splash.h"
+#include "mainMenu.h"
+
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -15,17 +17,17 @@
 
 class Game
 {
-	License licenseScreen;
+	License license;
 	Splash splash;
-
+	MainMenu menu;
 public:
 
-	static GameState currentState;
+	GameState currentState;
 	Game();
 	~Game();
 	void run();
 
-
+	int licenseTimer = 60;
 	void processEvents();
 	void update(sf::Time t_deltaTime);
 	void render();

@@ -10,7 +10,7 @@ void Splash::init(sf::Font & font)
 {
 
 	message.setFont(font);
-	message.setString("Made by bob marley");
+	message.setString("Splash Screen");
 
 	message.setPosition(40.0f, 40.0f);
 	message.setCharacterSize(80);
@@ -22,12 +22,4 @@ void Splash::init(sf::Font & font)
 void Splash::draw(sf::RenderWindow & window)
 {
 	window.draw(message);
-}
-
-void Splash::takeInput()
-{
-	if (sf::Keyboard::isKeyPressed)
-	{
-		Game::currentState = GameState::licenseScreen;
-	}
 }

@@ -1,11 +1,9 @@
 #pragma once
 
-#include "MyVector3.h"
 #include <iostream> 
 #include <SFML/Graphics.hpp>
-#include <stdlib.h> 
-#include <time.h> 
-#include "Game.h"
+#include "enum.h"
+//#include "game.h"
 
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
@@ -15,15 +13,7 @@ class License
 {
 public:
 	License();
-	~License();
 	sf::Text message;
-
-public:
- 
 	void init(sf::Font &font);
 	void draw(sf::RenderWindow &window);
-	void setUpMessage();
-	void takeInput();
-	void draw();
-
 };

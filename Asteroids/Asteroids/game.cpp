@@ -1,14 +1,13 @@
-#include "license.h"
-#include "Game.h"
-#include <iostream>
-#include "enum.h"
+
+#include "game.h"
+
 
 
 Game::Game() :
 	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
 	m_exitGame{ false } //when true game will exit
 {
-	Game::currentState = GameState::licenseScreen;
+	Game::currentState = GameState::LicenseScreen;
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
 }
@@ -57,8 +56,16 @@ void Game::processEvents()
 			{
 				m_exitGame = true;
 			}
+			   
+			if (currentState == GameState::SplashScreen)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+				{
+					currentState = GameState::MainMenuScreen;
+				}
+			}
 		}
-		changeState();
+		
 	}
 }
 
@@ -68,6 +75,8 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	changeState();
+	licenseTimer--;
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -79,12 +88,25 @@ void Game::update(sf::Time t_deltaTime)
 /// </summary>
 void Game::render()
 {
-	m_window.clear(sf::Color::White);
-	m_window.draw(m_welcomeMessage);
-	m_window.draw(m_logoSprite);
+	//m_window.clear(sf::Color::White);
+	//m_window.draw(m_welcomeMessage);
+	//m_window.draw(m_logoSprite);
+	m_window.clear();
+	if (currentState == GameState::LicenseScreen)
+	{
+		license.draw(m_window);
+	}
+	
+	if (currentState == GameState::SplashScreen)
+	{
+		splash.draw(m_window);
+	}
 
-	licenseScreen.draw(m_window);
-	splash.draw(m_window);
+	if (currentState == GameState::MainMenuScreen)
+	{
+		menu.draw(m_window);
+	}
+
 	m_window.display();
 }
 
@@ -106,7 +128,8 @@ void Game::setupFontAndText()
 	m_welcomeMessage.setFillColor(sf::Color::Black);
 	m_welcomeMessage.setOutlineThickness(3.0f);
 	splash.init(m_ArialBlackfont);
-	licenseScreen.init(m_ArialBlackfont);
+	license.init(m_ArialBlackfont);
+	menu.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -125,19 +148,17 @@ void Game::setupSprite()
 
 void Game::changeState()
 {
-	if (Game::currentState == GameState::licenseScreen)
+	if (currentState == GameState::LicenseScreen)
 	{
-		if (sf::Keyboard::isKeyPressed)
-		{
-			Game::currentState = GameState::splashScreen;
+		if (licenseTimer <= 0)
+		{	
+			currentState = GameState::SplashScreen;
 		}
+		//if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+		//{
+		//	currentState = GameState::SplashScreen;
+		//}
 	}
 
-	if (Game::currentState == GameState::splashScreen)
-	{
-		if (sf::Keyboard::isKeyPressed)
-		{
-			Game::currentState = GameState::mainMenu;
-		}
-	}
+
 }

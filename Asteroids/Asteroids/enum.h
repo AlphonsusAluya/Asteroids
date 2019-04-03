@@ -1,6 +1,16 @@
 #pragma once
+
+
 enum class GameState
 {
 
-	licenseScreen, splashScreen, mainMenu, helpScreen, controlHelp, upgradeHelp, pickUpHelp, Upgrade, level
+	SplashScreen, 
+	LicenseScreen,
+	MainMenuScreen, 
+	HelpScreen,
+	ControlHelp,
+	UpgradeHelp,
+	PickUpHelp,
+	Upgrade, 
+	Level
 };
