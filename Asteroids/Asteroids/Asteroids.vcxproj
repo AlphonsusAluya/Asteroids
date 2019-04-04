@@ -27,6 +27,7 @@
     <ClInclude Include="license.h" />
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MyVector3.h" />
+    <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="pickUpSystem.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="upgrade.h" />
@@ -41,6 +42,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="MyVector3.cpp" />
+    <ClCompile Include="pauseMenu.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="upgrade.cpp" />

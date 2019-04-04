@@ -11,6 +11,8 @@
 #include "mainMenu.h"
 #include "helpScreen.h"
 #include "upgrade.h"
+#include "upgradeHelp.h"
+#include "pickUpSystem.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -23,13 +25,15 @@ class Game
 	MainMenu menu;
 	Help help;
 	Upgrade upgrade;
+	UpgradeHelp upgradeHelp;
+	PickUp pickUp;
 public:
 
 	GameState currentState;
 	Game();
 	~Game();
 	void run();
-
+	int helpTimer = 20;
 	int licenseTimer = 60;
 	void processEvents();
 	void update(sf::Time t_deltaTime);
@@ -46,4 +50,5 @@ public:
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 	bool m_exitGame; // control exiting game
 	void changeState();
+	void timer();
 };

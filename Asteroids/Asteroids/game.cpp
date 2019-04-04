@@ -76,7 +76,7 @@ void Game::processEvents()
 void Game::update(sf::Time t_deltaTime)
 {
 	changeState();
-	licenseTimer--;
+	timer();
 	if (m_exitGame)
 	{
 		m_window.close();
@@ -114,6 +114,15 @@ void Game::render()
 		upgrade.draw(m_window);
 	}
 
+	if (currentState == GameState::UpgradeHelp)
+	{
+		upgradeHelp.draw(m_window);
+	}
+
+	if (currentState == GameState::PickUpHelp)
+	{
+		pickUp.draw(m_window);
+	}
 	m_window.display();
 }
 
@@ -139,6 +148,8 @@ void Game::setupFontAndText()
 	menu.init(m_ArialBlackfont);
 	help.init(m_ArialBlackfont);
 	upgrade.init(m_ArialBlackfont);
+	upgradeHelp.init(m_ArialBlackfont);
+	pickUp.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -159,6 +170,7 @@ void Game::mouseClicks(sf::Event t_event)
 {
 	if (currentState == GameState::MainMenuScreen)
 	{
+		helpTimer = 30;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			sf::Vector2i position = sf::Mouse::getPosition();
@@ -189,8 +201,8 @@ void Game::mouseClicks(sf::Event t_event)
 		{
 			currentState = GameState::MainMenuScreen;
 		}
-
-		if (licenseTimer == 0)
+		
+		if (helpTimer <= 3)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
@@ -223,8 +235,28 @@ void Game::mouseClicks(sf::Event t_event)
 			currentState = GameState::MainMenuScreen;
 		}
 	}
-}
 
+	if (currentState == GameState::UpgradeHelp)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		{
+			currentState = GameState::HelpScreen;
+		}
+	}
+
+	if (currentState == GameState::PickUpHelp)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		{
+			currentState = GameState::HelpScreen;
+		}
+	}
+}
+void Game::timer()
+{
+	licenseTimer--;
+	helpTimer--;
+}
 void Game::changeState()
 {
 	if (currentState == GameState::LicenseScreen)
