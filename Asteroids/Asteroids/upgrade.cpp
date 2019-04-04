@@ -12,8 +12,7 @@ void Upgrade::init(sf::Font & font)
 {
 
 	message.setFont(font);
-	message.setString("Upgrade screen / upgrade ship");
-
+	message.setString("Upgrade screen / R to return");
 	message.setPosition(40.0f, 40.0f);
 	message.setCharacterSize(60);
 	message.setOutlineColor(sf::Color::Red);

@@ -10,6 +10,7 @@
 #include "splash.h"
 #include "mainMenu.h"
 #include "helpScreen.h"
+#include "upgrade.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -21,6 +22,7 @@ class Game
 	Splash splash;
 	MainMenu menu;
 	Help help;
+	Upgrade upgrade;
 public:
 
 	GameState currentState;

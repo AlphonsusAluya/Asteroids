@@ -109,6 +109,11 @@ void Game::render()
 		help.draw(m_window);
 	}
 
+	if (currentState == GameState::UpgradeScreen)
+	{
+		upgrade.draw(m_window);
+	}
+
 	m_window.display();
 }
 
@@ -133,6 +138,7 @@ void Game::setupFontAndText()
 	license.init(m_ArialBlackfont);
 	menu.init(m_ArialBlackfont);
 	help.init(m_ArialBlackfont);
+	upgrade.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -157,20 +163,21 @@ void Game::mouseClicks(sf::Event t_event)
 		{
 			sf::Vector2i position = sf::Mouse::getPosition();
 
-			if (position.y <= 310) // first button / start game
+			if (position.y <= 450) // first button / start game
 			{
 				std::cout << "gameplay";
 				currentState = GameState::GamePlay;
 			}
 
-			if (position.y > 311 && position.y <= 400) // help menu
+			if (position.y >= 451 && position.y <= 550) // help menu
 			{
 				std::cout << "help";
 				currentState = GameState::HelpScreen;
 			}
 
-			if (position.y >= 401) // help menu
+			if (position.y >= 551) // help menu
 			{
+				std::cout << "upgrade";
 				currentState = GameState::UpgradeScreen;
 			}
 		}
@@ -178,8 +185,6 @@ void Game::mouseClicks(sf::Event t_event)
 
 	if (currentState == GameState::HelpScreen)
 	{
-		licenseTimer = 30;
-
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 		{
 			currentState = GameState::MainMenuScreen;
@@ -191,23 +196,32 @@ void Game::mouseClicks(sf::Event t_event)
 			{
 				sf::Vector2i position = sf::Mouse::getPosition();
 
-				if (position.y <= 310) // first button / start game
+				if (position.y <= 450) // controls 
 				{
+					std::cout << "controls";
 					currentState = GameState::ControlHelp;
 				}
 
-				if (position.y > 311 && position.y <= 400) // help menu
+				if (position.y >= 451 && position.y <= 550) // help menu
 				{
+					std::cout << "Pick-up-system";
 					currentState = GameState::PickUpHelp;
 				}
 
-				if (position.y >= 401) // help menu
+				if (position.y >= 551) // help menu
 				{
+					std::cout << "upgradeHelp mup";
 					currentState = GameState::UpgradeHelp;
 				}
 			}
 		}
-
+	}
+	if (currentState == GameState::UpgradeScreen)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			currentState = GameState::MainMenuScreen;
+		}
 	}
 }
 
@@ -219,8 +233,5 @@ void Game::changeState()
 		{	
 			currentState = GameState::SplashScreen;
 		}
-
 	}
-
-
 }
