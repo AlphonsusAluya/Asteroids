@@ -108,6 +108,10 @@ void Game::render()
 	{
 		help.draw(m_window);
 	}
+	if (currentState == GameState::ControlHelp)
+	{
+		controlHelp.draw(m_window);
+	}
 
 	m_window.display();
 }
@@ -133,6 +137,7 @@ void Game::setupFontAndText()
 	license.init(m_ArialBlackfont);
 	menu.init(m_ArialBlackfont);
 	help.init(m_ArialBlackfont);
+	controlHelp.init(m_ArialBlackfont);
 }
 
 /// <summary>
@@ -175,7 +180,13 @@ void Game::mouseClicks(sf::Event t_event)
 			}
 		}
 	}
-
+	if (currentState == GameState::ControlHelp)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			currentState = GameState::MainMenuScreen;
+		}
+	}
 	if (currentState == GameState::HelpScreen)
 	{
 		licenseTimer = 30;
