@@ -64,66 +64,9 @@ void Game::processEvents()
 					currentState = GameState::MainMenuScreen;
 				}
 			}
-
-		}
-		if (currentState == GameState::MainMenuScreen)
-		{
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				sf::Vector2i position = sf::Mouse::getPosition();
-
-				if ( position.y <= 310) // first button / start game
-				{
-					std::cout << "gameplay";
-					currentState = GameState::GamePlay;
-				}
-
-				if (position.y > 311 && position.y <= 400 ) // help menu
-				{
-					std::cout << "help";
-					currentState = GameState::HelpScreen;
-				}
-
-				if (position.y >= 401) // help menu
-				{
-					currentState = GameState::UpgradeScreen;
-				}
-			}
-		}
-
-		if (currentState == GameState::HelpScreen)
-		{
-			licenseTimer = 30;
-
-			if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-			{
-				currentState = GameState::MainMenuScreen;
-			}
-
-			if (licenseTimer == 0)
-			{
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-				{
-					sf::Vector2i position = sf::Mouse::getPosition();
-
-					if (position.y <= 310) // first button / start game
-					{
-						currentState = GameState::ControlHelp;
-					}
-
-					if (position.y > 311 && position.y <= 400) // help menu
-					{
-						currentState = GameState::PickUpHelp;
-					}
-
-					if (position.y >= 401) // help menu
-					{
-						currentState = GameState::UpgradeHelp;
-					}
-				}
-			}
 			
 		}
+		mouseClicks(event);
 	}
 }
 /// <summary>
@@ -204,6 +147,68 @@ void Game::setupSprite()
 	}
 	m_logoSprite.setTexture(m_logoTexture);
 	m_logoSprite.setPosition(300.0f, 180.0f);
+}
+
+void Game::mouseClicks(sf::Event t_event)
+{
+	if (currentState == GameState::MainMenuScreen)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i position = sf::Mouse::getPosition();
+
+			if (position.y <= 310) // first button / start game
+			{
+				std::cout << "gameplay";
+				currentState = GameState::GamePlay;
+			}
+
+			if (position.y > 311 && position.y <= 400) // help menu
+			{
+				std::cout << "help";
+				currentState = GameState::HelpScreen;
+			}
+
+			if (position.y >= 401) // help menu
+			{
+				currentState = GameState::UpgradeScreen;
+			}
+		}
+	}
+
+	if (currentState == GameState::HelpScreen)
+	{
+		licenseTimer = 30;
+
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		{
+			currentState = GameState::MainMenuScreen;
+		}
+
+		if (licenseTimer == 0)
+		{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				sf::Vector2i position = sf::Mouse::getPosition();
+
+				if (position.y <= 310) // first button / start game
+				{
+					currentState = GameState::ControlHelp;
+				}
+
+				if (position.y > 311 && position.y <= 400) // help menu
+				{
+					currentState = GameState::PickUpHelp;
+				}
+
+				if (position.y >= 401) // help menu
+				{
+					currentState = GameState::UpgradeHelp;
+				}
+			}
+		}
+
+	}
 }
 
 void Game::changeState()

@@ -7,12 +7,12 @@
 // est time: 40 hours 
 // act time 2 hours, +
 
-class upgrade
+class Upgrade
 {
 
 public:
 
-	Splash();
+	Upgrade();
 
 
 	sf::Text message;
