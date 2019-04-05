@@ -13,6 +13,9 @@
 #include "upgrade.h"
 #include "upgradeHelp.h"
 #include "pickUpSystem.h"
+
+#include "controlHelp.h"
+
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -24,9 +27,13 @@ class Game
 	Splash splash;
 	MainMenu menu;
 	Help help;
+
 	Upgrade upgrade;
 	UpgradeHelp upgradeHelp;
 	PickUp pickUp;
+
+	ControlHelp controlHelp;
+
 public:
 
 	GameState currentState;
