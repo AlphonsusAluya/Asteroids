@@ -33,7 +33,7 @@ class Game
 	PickUp pickUp;
 
 	ControlHelp controlHelp;
-
+ 
 public:
 
 	GameState currentState;

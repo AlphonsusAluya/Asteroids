@@ -19,6 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AsteroidsLarge.h" />
+    <ClInclude Include="AsteroidsMedium.h" />
+    <ClInclude Include="AsteroidsSmall.h" />
     <ClInclude Include="controlHelp.h" />
     <ClInclude Include="enum.h" />
     <ClInclude Include="game.h" />
@@ -34,6 +37,9 @@
     <ClInclude Include="upgradeHelp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AsteroidsLarge.cpp" />
+    <ClCompile Include="AsteroidsMedium.cpp" />
+    <ClCompile Include="AsteroidsSmall.cpp" />
     <ClCompile Include="controlHelp.cpp" />
     <ClCompile Include="game.cpp" />
     <ClCompile Include="helpScreen.cpp" />

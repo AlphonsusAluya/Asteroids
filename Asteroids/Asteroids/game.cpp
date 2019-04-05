@@ -152,11 +152,11 @@ void Game::setupFontAndText()
 	menu.init(m_ArialBlackfont);
 	help.init(m_ArialBlackfont);
 
-		upgrade.init(m_ArialBlackfont);
+	upgrade.init(m_ArialBlackfont);
 	upgradeHelp.init(m_ArialBlackfont);
 	pickUp.init(m_ArialBlackfont);
 
-		controlHelp.init(m_ArialBlackfont);
+	controlHelp.init(m_ArialBlackfont);
 
 }
 
@@ -204,9 +204,9 @@ void Game::mouseClicks(sf::Event t_event)
 	}
 	if (currentState == GameState::ControlHelp)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 		{
-			currentState = GameState::MainMenuScreen;
+			currentState = GameState::HelpScreen;
 		}
 	}
 	if (currentState == GameState::HelpScreen)
@@ -224,19 +224,16 @@ void Game::mouseClicks(sf::Event t_event)
 
 				if (position.y <= 450) // controls 
 				{
-					std::cout << "controls";
 					currentState = GameState::ControlHelp;
 				}
 
 				if (position.y >= 451 && position.y <= 550) // help menu
 				{
-					std::cout << "Pick-up-system";
 					currentState = GameState::PickUpHelp;
 				}
 
 				if (position.y >= 551) // help menu
 				{
-					std::cout << "upgradeHelp mup";
 					currentState = GameState::UpgradeHelp;
 				}
 			}

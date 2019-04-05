@@ -54,6 +54,15 @@
     <ClInclude Include="pauseMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AsteroidsLarge.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidsSmall.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AsteroidsMedium.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="splash.cpp">
@@ -93,6 +102,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="pauseMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidsLarge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidsSmall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AsteroidsMedium.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
