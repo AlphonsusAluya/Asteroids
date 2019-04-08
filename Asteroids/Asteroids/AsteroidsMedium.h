@@ -24,7 +24,11 @@ public:
 
 
 	sf::Sprite getMediumAsteroid();
+
 	void wasShot();
+
+
+
 	void positioning();
 	void move();
 	void checkBorders();

@@ -1,5 +1,4 @@
-﻿  AsteroidsLarge.cpp
-  game.cpp
+﻿  game.cpp
 c:\users\fiercepc\desktop\gitbashasteroids\18-asteroids-andrew-and-alphonsus\asteroids\asteroids\game.cpp(62): warning C4551: function call missing argument list
-  Generating Code...
+  LINK : C:\Users\FiercePC\Desktop\gitBashAsteroids\18-asteroids-andrew-and-alphonsus\Asteroids\Debug\Asteroids.exe not found or not built by the last incremental link; performing full link
   Asteroids.vcxproj -> C:\Users\FiercePC\Desktop\gitBashAsteroids\18-asteroids-andrew-and-alphonsus\Asteroids\Debug\Asteroids.exe

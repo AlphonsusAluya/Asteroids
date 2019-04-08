@@ -1,5 +1,8 @@
 #include "AsteroidsLarge.h"
 #include "AsteroidsSmall.h"
+
+
+
 AsteroidsLarge::AsteroidsLarge()
 {
 	if (!asteroidTexture.loadFromFile("ASSETS/IMAGES/asteroid2.png"))
@@ -25,7 +28,9 @@ void AsteroidsLarge::positioning()
 	double randomVelocityY = 0;
 	
 	randomVelocityX = rand() % 9 - 5;
+
 	randomVelocityY = rand() % 4 + 1;
+
 	randomX = rand() % 600 + 1;
 	originalLocation = { randomX,-75,0 };
 
@@ -57,6 +62,7 @@ void AsteroidsLarge::wasShot()
 	location.y = originalLocation.y - 100;
 
 }
+
 void AsteroidsLarge::update()
 {
 	checkBorders();

@@ -24,7 +24,10 @@ public:
 
 
 	sf::Sprite getLargeAsteroid();
+
 	void wasShot();
+
+
 	void positioning();
 	void move();
 	void checkBorders();

@@ -83,6 +83,7 @@ void Game::update(sf::Time t_deltaTime)
 			mediumAsteroids[i].update();
 		}
 
+
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			smallAsteroids[i].update();
@@ -151,10 +152,12 @@ void Game::render()
 			mediumAsteroids[i].draw(m_window);
 		}
 
+
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			smallAsteroids[i].draw(m_window);
 		}
+
 	}
 
 	m_window.display();

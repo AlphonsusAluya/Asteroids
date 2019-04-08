@@ -16,6 +16,7 @@
 #include "AsteroidsLarge.h"
 #include "AsteroidsMedium.h"
 #include "AsteroidsSmall.h"
+
 #include "controlHelp.h"
 #include "globalConstant.h"
 // Andrew Bashorum And Alphonsus
@@ -38,7 +39,9 @@ class Game
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
+
 	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
+
  
 public:
 

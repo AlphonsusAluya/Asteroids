@@ -27,7 +27,9 @@ void AsteroidsMedium::positioning()
 	double randomVelocityY = 0;
 
 	randomVelocityX = rand() % 9 - 5;
+
 	randomVelocityY = rand() % 5 + 1;
+
 	randomX = rand() % 600 + 1;
 	originalLocation = { randomX,-400,0 };
 
@@ -64,7 +66,9 @@ void AsteroidsMedium::draw(sf::RenderWindow & window)
 	window.draw(sprite);
 }
 
+
 void AsteroidsMedium::wasShot()
 {
 
 }
+
