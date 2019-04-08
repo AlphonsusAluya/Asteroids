@@ -12,13 +12,23 @@ class AsteroidsMedium
 {
 
 public:
-
+	int number;
 	AsteroidsMedium();
 
+	MyVector3 originalLocation;
 	MyVector3 velocity;
 	MyVector3 location;
 
 	sf::Sprite sprite;
 	sf::Texture asteroidTexture;
+
+
+	sf::Sprite getMediumAsteroid();
+
+	void positioning();
+	void move();
+	void checkBorders();
+	void update();
+	void draw(sf::RenderWindow & window);
 };
 

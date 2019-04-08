@@ -13,9 +13,10 @@
 #include "upgrade.h"
 #include "upgradeHelp.h"
 #include "pickUpSystem.h"
-
+#include "AsteroidsLarge.h"
+#include "AsteroidsMedium.h"
 #include "controlHelp.h"
-
+#include "globalConstant.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -33,6 +34,9 @@ class Game
 	PickUp pickUp;
 
 	ControlHelp controlHelp;
+
+	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
+	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
  
 public:
 

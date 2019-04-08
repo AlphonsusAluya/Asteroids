@@ -63,6 +63,9 @@
     <ClInclude Include="AsteroidsMedium.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="globalConstant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="splash.cpp">
