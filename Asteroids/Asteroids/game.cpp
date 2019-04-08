@@ -75,6 +75,21 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	if (currentState == GameState::GamePlay)
+	{
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].update();
+			mediumAsteroids[i].update();
+		}
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].update();
+		}
+	}
+	
+	
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -127,6 +142,21 @@ void Game::render()
 	{
 		pickUp.draw(m_window);
 	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);
+		}
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].draw(m_window);
+		}
+	}
+
 	m_window.display();
 }
 
@@ -262,11 +292,35 @@ void Game::mouseClicks(sf::Event t_event)
 			currentState = GameState::HelpScreen;
 		}
 	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		{
+
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+			{
+				smallAsteroids[i].positioning(asteroidsL[1].location, asteroidsL[1].velocity );
+			}
+
+			if (asteroidResetTimer < 2)
+			{
+				asteroidsL[1].wasShot();
+			}
+			
+		}
+	}
 }
 void Game::timer()
 {
+	asteroidResetTimer--;
 	licenseTimer--;
 	helpTimer--;
+
+	if (asteroidResetTimer < 1)
+	{
+		asteroidResetTimer = 30;
+	}
 }
 void Game::changeState()
 {

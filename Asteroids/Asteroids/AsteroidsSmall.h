@@ -12,12 +12,21 @@ class AsteroidsSmall
 {
 	
 public:
-
+	int number;
 	AsteroidsSmall();
 
+	MyVector3 originalLocation;
 	MyVector3 velocity;
 	MyVector3 location;
 
 	sf::Sprite sprite;
 	sf::Texture asteroidTexture;
+
+
+	void positioning(MyVector3 t_location, MyVector3 t_veloctiy);
+	void move();
+	void checkBorders();
+	void update();
+	void draw(sf::RenderWindow & window);
+	MyVector3 getVelocity();
 };

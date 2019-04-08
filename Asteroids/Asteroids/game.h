@@ -13,9 +13,11 @@
 #include "upgrade.h"
 #include "upgradeHelp.h"
 #include "pickUpSystem.h"
-
+#include "AsteroidsLarge.h"
+#include "AsteroidsMedium.h"
+#include "AsteroidsSmall.h"
 #include "controlHelp.h"
-
+#include "globalConstant.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -33,6 +35,10 @@ class Game
 	PickUp pickUp;
 
 	ControlHelp controlHelp;
+
+	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
+	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
+	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
  
 public:
 
@@ -41,6 +47,7 @@ public:
 	~Game();
 	void run();
 	int helpTimer = 20;
+	int asteroidResetTimer = 100;
 	int licenseTimer = 60;
 	void processEvents();
 	void update(sf::Time t_deltaTime);
