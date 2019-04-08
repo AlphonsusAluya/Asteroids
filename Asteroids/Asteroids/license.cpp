@@ -12,7 +12,7 @@ void License::init(sf::Font & font)
 {
 
 	message.setFont(font);
-	message.setString("Asteroids \nby Heskey and Alph");
+	message.setString("Asteroids \n by Heskey and Aluya.inc");
 
 	message.setPosition(40.0f, 40.0f);
 	message.setCharacterSize(60);

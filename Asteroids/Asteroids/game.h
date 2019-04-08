@@ -11,6 +11,7 @@
 #include "mainMenu.h"
 #include "helpScreen.h"
 #include "controlHelp.h"
+#include "player.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -23,6 +24,7 @@ class Game
 	MainMenu menu;
 	Help help;
 	ControlHelp controlHelp;
+	Player player;
 public:
 
 	GameState currentState;

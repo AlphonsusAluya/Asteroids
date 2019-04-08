@@ -10,7 +10,7 @@ void Help::init(sf::Font & font)
 {
 
 	message.setFont(font);
-	message.setString("Controls \nPick-up-sytem \nUpgrade-System");
+	message.setString("Controls \n Pick-up-sytem \n Upgrades");
 
 	message.setPosition(140.0f, 120.0f);
 	message.setCharacterSize(70);

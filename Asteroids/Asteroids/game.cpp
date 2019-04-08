@@ -75,6 +75,23 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	{
+		player.moveLeft();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	{
+		player.moveRight();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+	{
+		player.moveUp();
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+	{
+		player.moveDown();
+	}
+
 	changeState();
 	licenseTimer--;
 	if (m_exitGame)
@@ -112,6 +129,8 @@ void Game::render()
 	{
 		controlHelp.draw(m_window);
 	}
+
+	m_window.draw(player.getBody());
 
 	m_window.display();
 }

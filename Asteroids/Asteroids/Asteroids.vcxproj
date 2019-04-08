@@ -28,6 +28,7 @@
     <ClInclude Include="mainMenu.h" />
     <ClInclude Include="MyVector3.h" />
     <ClInclude Include="pickUpSystem.h" />
+    <ClInclude Include="player.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="upgrade.h" />
     <ClInclude Include="upgradeHelp.h" />
@@ -42,6 +43,7 @@
     <ClCompile Include="mainMenu.cpp" />
     <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
+    <ClCompile Include="player.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="upgrade.cpp" />
     <ClCompile Include="upgradeHelp.cpp" />
