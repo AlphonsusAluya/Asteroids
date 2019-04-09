@@ -14,6 +14,8 @@ class MainMenu
 public:
 	MainMenu();
 
+	sf::Sprite sprite;
+	sf::Texture texture;
 	sf::Text message;
 
 	void init(sf::Font &font);

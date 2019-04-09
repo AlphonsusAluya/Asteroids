@@ -75,6 +75,20 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	if (currentState == GameState::GamePlay)
+	{
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].update();
+			mediumAsteroids[i].update();
+		}
+		player.update();
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].update();
+		}
+	}
+	
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -127,6 +141,25 @@ void Game::render()
 	{
 		pickUp.draw(m_window);
 	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		m_window.draw(backRoundSprite);
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);
+		}
+
+		player.draw(m_window);
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].draw(m_window);
+		}
+
+	}
+
 	m_window.display();
 }
 
@@ -165,13 +198,14 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
-	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
+	if (!backRoundTexture.loadFromFile("ASSETS/IMAGES/gameplay.png"))
 	{
 		// simple error message if previous call fails
-		std::cout << "problem loading logo" << std::endl;
+		std::cout << "problem loading gmaeplay backround" << std::endl;
 	}
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(300.0f, 180.0f);
+
+
+	backRoundSprite.setTexture(backRoundTexture);
 }
 
 void Game::mouseClicks(sf::Event t_event)
@@ -262,11 +296,32 @@ void Game::mouseClicks(sf::Event t_event)
 			currentState = GameState::HelpScreen;
 		}
 	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		player.rotate(t_event);
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
+		{
+
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+			{
+				MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE/2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE/2, 0 };
+				smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
+			}
+	
+		}
+	}
 }
 void Game::timer()
 {
+	asteroidResetTimer--;
 	licenseTimer--;
 	helpTimer--;
+
+	if (asteroidResetTimer < 1)
+	{
+		asteroidResetTimer = 30;
+	}
 }
 void Game::changeState()
 {
