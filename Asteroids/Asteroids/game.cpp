@@ -75,6 +75,22 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 void Game::update(sf::Time t_deltaTime)
 {
+	if (currentState == GameState::GamePlay)
+	{
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].update();
+			mediumAsteroids[i].update();
+		}
+
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].update();
+		}
+	}
+	
+	
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -127,6 +143,23 @@ void Game::render()
 	{
 		pickUp.draw(m_window);
 	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);
+		}
+
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].draw(m_window);
+		}
+
+	}
+
 	m_window.display();
 }
 
@@ -260,6 +293,21 @@ void Game::mouseClicks(sf::Event t_event)
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 		{
 			currentState = GameState::HelpScreen;
+		}
+	}
+
+	if (currentState == GameState::GamePlay)
+	{
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
+		{
+
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+			{
+				MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE/2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE/2, 0 };
+				smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
+			}
+
+			//asteroidsL[2].wasShot();
 		}
 	}
 }
