@@ -298,6 +298,7 @@ void Game::mouseClicks(sf::Event t_event)
 
 	if (currentState == GameState::GamePlay)
 	{
+
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
 		{
 
@@ -306,15 +307,20 @@ void Game::mouseClicks(sf::Event t_event)
 				MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE/2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE/2, 0 };
 				smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
 			}
-
-			//asteroidsL[2].wasShot();
+	
 		}
 	}
 }
 void Game::timer()
 {
+	asteroidResetTimer--;
 	licenseTimer--;
 	helpTimer--;
+
+	if (asteroidResetTimer < 1)
+	{
+		asteroidResetTimer = 30;
+	}
 }
 void Game::changeState()
 {

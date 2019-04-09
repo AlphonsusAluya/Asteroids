@@ -59,7 +59,8 @@ void AsteroidsLarge::checkBorders()
 
 void AsteroidsLarge::wasShot()
 {
-	location.y = 1000, 1000, 0;
+
+	location.y = originalLocation.y - 100;
 
 }
 

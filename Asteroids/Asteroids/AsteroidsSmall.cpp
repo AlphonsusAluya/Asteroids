@@ -20,8 +20,10 @@ AsteroidsSmall::AsteroidsSmall()
 void AsteroidsSmall::positioning(MyVector3 t_location, MyVector3 t_veloctiy)
 {
 	location = t_location;
+
 	velocity.x = t_veloctiy.x + rand() % 8 - 4;
 	velocity.y = t_veloctiy.y + rand() % 3 - 1;
+
 }
 
 void AsteroidsSmall::move()
