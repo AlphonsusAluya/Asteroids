@@ -19,6 +19,7 @@
 #include "playerShip.h"
 #include "controlHelp.h"
 #include "globalConstant.h"
+#include "pauseMenu.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -35,10 +36,11 @@ class Game
 	UpgradeHelp upgradeHelp;
 	PickUp pickUp;
 
+	PauseMenu pause;
 	ControlHelp controlHelp;
 
 	Player player;
-
+	bool paused = false;
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
 

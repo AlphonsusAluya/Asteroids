@@ -8,6 +8,7 @@ enum class GameState
 	ControlHelp,
 	UpgradeHelp,
 	PickUpHelp,
+	PauseMenu,
 	GamePlay,
 	UpgradeScreen, 
 	Level
