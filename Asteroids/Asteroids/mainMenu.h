@@ -17,6 +17,7 @@ public:
 	sf::Sprite sprite;
 	sf::Texture texture;
 	sf::Text message;
+	
 
 	void init(sf::Font &font);
 	void draw(sf::RenderWindow &window);

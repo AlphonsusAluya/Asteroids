@@ -6,7 +6,10 @@ Player::Player()
 	{
 		std::cout << "error with large asteroid image";
 	}
-
+	if (!icon.loadFromFile("ASSETS/IMAGES/menuicon.png"))
+	{
+		std::cout << "error with menu icon image";
+	}
 
 
 	location = { 200,300,0 };
@@ -14,6 +17,7 @@ Player::Player()
 
 	REAL_SIZE = PLAYER_SIZE * 0.2;
 	sprite.setTexture(texture);
+	sprite2.setTexture(icon);
 
 }
 
@@ -30,11 +34,17 @@ void Player::update()
 void Player::draw(sf::RenderWindow & window)
 {
 	window.draw(sprite);
+	window.draw(sprite2);
 }
 
 sf::Sprite Player::getBody()
 {
 	return sprite;
+}
+
+sf::Sprite Player::getBody2()
+{
+	return sprite2;
 }
 
 void Player::rotate(sf::Event t_event)

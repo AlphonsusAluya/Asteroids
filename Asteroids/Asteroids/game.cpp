@@ -299,6 +299,16 @@ void Game::mouseClicks(sf::Event t_event)
 
 	if (currentState == GameState::GamePlay)
 	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i position = sf::Mouse::getPosition(m_window);
+
+			if (position.y <= 40 && position.x <= 40) // first button / start game
+			{
+				std::cout << "main menu ";
+				currentState = GameState::MainMenuScreen;
+			}
+		}
 		player.rotate(t_event);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
 		{

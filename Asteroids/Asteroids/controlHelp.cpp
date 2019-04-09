@@ -10,7 +10,7 @@ void ControlHelp::init(sf::Font & font)
 {
 
 	message.setFont(font);
-	message.setString("the use of the arrow keys is how you will move the ship \n up down left and right spacebar will be used to shoot from the ship");
+	message.setString("the use of the arrow keys is how you will move the ship \n up down left and right the spacebar will be used to shoot \n from the ship \n to rotate the ship anticlockwise A should be pressed \n to rotate clockwise D should be pressed");
 
 	message.setPosition(10.0f, 120.0f);
 	message.setCharacterSize(25);
