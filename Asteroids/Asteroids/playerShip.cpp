@@ -7,6 +7,8 @@ Player::Player()
 		std::cout << "error with large asteroid image";
 	}
 
+
+
 	location = { 200,300,0 };
 	sprite.setScale(0.2, 0.2);
 

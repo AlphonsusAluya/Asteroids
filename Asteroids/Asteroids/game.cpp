@@ -144,6 +144,7 @@ void Game::render()
 
 	if (currentState == GameState::GamePlay)
 	{
+		m_window.draw(backRoundSprite);
 		for (int i = 0; i < MAX_ASTEROIDS; i++)
 		{
 			asteroidsL[i].draw(m_window);
@@ -197,13 +198,14 @@ void Game::setupFontAndText()
 /// </summary>
 void Game::setupSprite()
 {
-	if (!m_logoTexture.loadFromFile("ASSETS\\IMAGES\\SFML-LOGO.png"))
+	if (!backRoundTexture.loadFromFile("ASSETS/IMAGES/gameplay.png"))
 	{
 		// simple error message if previous call fails
-		std::cout << "problem loading logo" << std::endl;
+		std::cout << "problem loading gmaeplay backround" << std::endl;
 	}
-	m_logoSprite.setTexture(m_logoTexture);
-	m_logoSprite.setPosition(300.0f, 180.0f);
+
+
+	backRoundSprite.setTexture(backRoundTexture);
 }
 
 void Game::mouseClicks(sf::Event t_event)

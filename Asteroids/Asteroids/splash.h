@@ -14,6 +14,8 @@ public:
 
 	Splash();
 
+	sf::Sprite sprite;
+	sf::Texture texture;
 
 	sf::Text message;
 	sf::Text pressAnyKey;

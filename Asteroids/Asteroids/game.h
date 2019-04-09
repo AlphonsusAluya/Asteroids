@@ -44,7 +44,8 @@ class Game
 
 	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
 
- 
+	sf::Sprite backRoundSprite;
+	sf::Texture backRoundTexture;
 public:
 
 	GameState currentState;
