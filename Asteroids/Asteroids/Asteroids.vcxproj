@@ -33,6 +33,7 @@
     <ClInclude Include="MyVector3.h" />
     <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="pickUpSystem.h" />
+    <ClInclude Include="playerShip.h" />
     <ClInclude Include="splash.h" />
     <ClInclude Include="upgrade.h" />
     <ClInclude Include="upgradeHelp.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
+    <ClCompile Include="playerShip.cpp" />
     <ClCompile Include="splash.cpp" />
     <ClCompile Include="upgrade.cpp" />
     <ClCompile Include="upgradeHelp.cpp" />

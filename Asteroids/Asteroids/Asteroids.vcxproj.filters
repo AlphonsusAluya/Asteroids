@@ -66,6 +66,9 @@
     <ClInclude Include="globalConstant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="playerShip.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="splash.cpp">
@@ -114,6 +117,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AsteroidsMedium.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playerShip.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

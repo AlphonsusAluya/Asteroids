@@ -1,6 +1,6 @@
 #include "AsteroidsLarge.h"
 #include "AsteroidsSmall.h"
-
+#include "globalConstant.h"
 
 
 AsteroidsLarge::AsteroidsLarge()

@@ -16,7 +16,7 @@
 #include "AsteroidsLarge.h"
 #include "AsteroidsMedium.h"
 #include "AsteroidsSmall.h"
-
+#include "playerShip.h"
 #include "controlHelp.h"
 #include "globalConstant.h"
 // Andrew Bashorum And Alphonsus
@@ -36,6 +36,8 @@ class Game
 	PickUp pickUp;
 
 	ControlHelp controlHelp;
+
+	Player player;
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];

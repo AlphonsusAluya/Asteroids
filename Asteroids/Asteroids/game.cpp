@@ -82,14 +82,12 @@ void Game::update(sf::Time t_deltaTime)
 			asteroidsL[i].update();
 			mediumAsteroids[i].update();
 		}
-
-
+		player.update();
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			smallAsteroids[i].update();
 		}
 	}
-	
 	
 	changeState();
 	timer();
@@ -152,6 +150,7 @@ void Game::render()
 			mediumAsteroids[i].draw(m_window);
 		}
 
+		player.draw(m_window);
 
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
@@ -298,7 +297,7 @@ void Game::mouseClicks(sf::Event t_event)
 
 	if (currentState == GameState::GamePlay)
 	{
-
+		player.rotate(t_event);
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
 		{
 
