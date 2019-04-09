@@ -66,9 +66,12 @@
     <ClInclude Include="globalConstant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="playerShip.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+>>>>>>> b9920a7f17da5bb6f6bb3a4ca177fe002d633a0b
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="splash.cpp">

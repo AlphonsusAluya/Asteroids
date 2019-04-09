@@ -37,15 +37,20 @@ class Game
 
 	ControlHelp controlHelp;
 
+
 	Player player;
+
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
 
 	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
 
+
 	sf::Sprite backRoundSprite;
 	sf::Texture backRoundTexture;
+
+ 
 public:
 
 	GameState currentState;

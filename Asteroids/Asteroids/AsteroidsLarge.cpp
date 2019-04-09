@@ -3,6 +3,7 @@
 #include "globalConstant.h"
 
 
+
 AsteroidsLarge::AsteroidsLarge()
 {
 	if (!asteroidTexture.loadFromFile("ASSETS/IMAGES/asteroid2.png"))
