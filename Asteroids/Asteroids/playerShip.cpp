@@ -10,21 +10,26 @@ Player::Player()
 	{
 		std::cout << "error with menu icon image";
 	}
-
-
-	location = { 200,300,0 };
-	sprite.setScale(0.2, 0.2);
-
-	REAL_SIZE = PLAYER_SIZE * 0.2;
 	sprite.setTexture(texture);
+	REAL_SIZE = PLAYER_SIZE * 0.2;
+	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
+	sprite.setScale(0.2, 0.2);
+	
+	location = { 200,300,0 };
+	
+	
 	sprite2.setTexture(icon);
-
+	
 }
 
 void Player::update()
 {
 	location = location + velocity;
-	sprite.setOrigin(location.x - REAL_SIZE / 2, location.y - REAL_SIZE / 2);
+	if (velocity.length() > 20)
+	{
+
+		velocity = { 1,0,0 };
+	}
 	sprite.setPosition(location);
 	checkBorders();
 }
