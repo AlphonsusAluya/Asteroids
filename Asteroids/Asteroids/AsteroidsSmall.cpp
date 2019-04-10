@@ -11,9 +11,10 @@ AsteroidsSmall::AsteroidsSmall()
 
 	sprite.setTexture(asteroidTexture);
 
-	originalLocation = { 1000,1000,1000 };
+	originalLocation = { 10000,10000,0 };
 
 	location = originalLocation;
+	sprite.setPosition(location);
 }
 
 
@@ -34,16 +35,28 @@ void AsteroidsSmall::move()
 
 void AsteroidsSmall::checkBorders()
 {
-	if (location.x > 805 || location.x < -5)
+	if (location.x > 600)
 	{
-		location = originalLocation;
+		location.x = location.x - 600;
 
 	}
 
-	if (location.y > 805)
+	if (location.x < 0)
+	{
+		location.x = location.x + 600;
+
+	}
+
+	if (location.y > 800)
 	{
 
-		location = originalLocation;
+		location.y = location.y - 800;
+	}
+
+	if (location.y < 0)
+	{
+
+		location.y = location.y + 800;
 	}
 }
 
