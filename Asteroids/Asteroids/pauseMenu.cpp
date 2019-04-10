@@ -29,6 +29,6 @@ void PauseMenu::init(sf::Font & font)
 
 void PauseMenu::draw(sf::RenderWindow & window)
 {
-	window.draw(rect);
+	//window.draw(rect);
 	window.draw(message);
 }

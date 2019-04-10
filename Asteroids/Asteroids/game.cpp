@@ -1,10 +1,8 @@
 
 #include "game.h"
 
-
-
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
+	m_window{ sf::VideoMode{ 800, 600, 32 }, "Asteroids" },
 	m_exitGame{ false } //when true game will exit
 {
 	Game::currentState = GameState::LicenseScreen;
@@ -12,11 +10,9 @@ Game::Game() :
 	setupSprite(); // load texture
 }
 
-
 Game::~Game()
 {
 }
-
 
 void Game::run()
 {
@@ -105,10 +101,8 @@ void Game::processEvents()
 					}
 				}
 			
-
-			
 		}
-		mouseClicks(event);
+		mouseClicks(event, m_window);
 	}
 }
 /// <summary>
@@ -133,7 +127,7 @@ void Game::update(sf::Time t_deltaTime)
 			}
 		}
 	}
-	
+
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -271,28 +265,28 @@ void Game::setupSprite()
 	backRoundSprite.setTexture(backRoundTexture);
 }
 
-void Game::mouseClicks(sf::Event t_event)
+void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 {
 	if (currentState == GameState::MainMenuScreen)
 	{
 		helpTimer = 30;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			sf::Vector2i position = sf::Mouse::getPosition();
+			sf::Vector2i position = sf::Mouse::getPosition(t_window);
 
-			if (position.y <= 300) // first button / start game
+			if (position.y <= 220) // first button / start game
 			{
 				std::cout << "gameplay";
 				currentState = GameState::GamePlay;
 			}
 
-			if (position.y >= 300 && position.y <= 450) // help menu
+			if (position.y >= 220 && position.y <= 320) // help menu
 			{
 				std::cout << "help";
 				currentState = GameState::HelpScreen;
 			}
 
-			if (position.y >= 451) // help menu
+			if (position.y >= 321) // help menu
 			{
 				std::cout << "upgrade";
 				currentState = GameState::UpgradeScreen;
@@ -306,37 +300,36 @@ void Game::mouseClicks(sf::Event t_event)
 
 	if (currentState == GameState::PauseMenu)
 	{
-
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				sf::Vector2i position = sf::Mouse::getPosition();
-
-				if (position.y <= 300) // first button / start game
+				sf::Vector2i position = sf::Mouse::getPosition(t_window);
+				int output = position.y;
+				std::cout << output;
+				if (position.y <= 220) // first button / start game
 				{
 					std::cout << "gameplay mup";
 					paused = false;
 					currentState = GameState::GamePlay;
 				}
 
-				if (position.y >= 300 && position.y <= 450) // help menu
+				if (position.y >= 220 && position.y <= 320) // help menu
 				{
 					std::cout << "help";
 					currentState = GameState::HelpScreen;
 				}
 
-				if (position.y >= 451) // help menu
+				if (position.y >= 321) // help menu
 				{
 					std::cout << "upgrade";
 					currentState = GameState::UpgradeScreen;
 				}
-			}
-		
+			}		
 	}
 	if (currentState == GameState::GamePlay)
 	{
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			sf::Vector2i position = sf::Mouse::getPosition(m_window);
+			sf::Vector2i position = sf::Mouse::getPosition(t_window);
 
 			if (position.y <= 40 && position.x <= 40) // first button / start game
 			{
@@ -364,19 +357,19 @@ void Game::mouseClicks(sf::Event t_event)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				sf::Vector2i position = sf::Mouse::getPosition();
+				sf::Vector2i position = sf::Mouse::getPosition(t_window);
 
-				if (position.y <= 300) // controls 
+				if (position.y <= 220) // first button / start game
 				{
 					currentState = GameState::ControlHelp;
 				}
 
-				if (position.y >= 300 && position.y <= 450) // help menu
+				if (position.y >= 220 && position.y <= 320) // help menu
 				{
 					currentState = GameState::PickUpHelp;
 				}
 
-				if (position.y >= 451) // help menu
+				if (position.y >= 321) // help menu
 				{
 					currentState = GameState::UpgradeHelp;
 				}
