@@ -3,13 +3,16 @@
 #include <SFML/Graphics.hpp>
 #include "MyVector3.h"
 #include "globalConstant.h"
+#include "Music.h"
 class Player
 {
+	Music sound;
 	sf::Sprite sprite;
 	sf::Sprite sprite2;
 	sf::Texture texture;
 	sf::Texture icon;
 	float REAL_SIZE = 0;
+	sf::Vector2f lookDirection = { 0,-1 };
 	MyVector3 location;
 	MyVector3 velocity;
 public:
@@ -25,4 +28,5 @@ public:
 	void update();
 	void moveDown();
 	void checkBorders();
+	void pos();
 };

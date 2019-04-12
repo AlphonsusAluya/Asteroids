@@ -19,6 +19,7 @@
 #include "playerShip.h"
 #include "controlHelp.h"
 #include "globalConstant.h"
+#include "Music.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -38,6 +39,7 @@ class Game
 	ControlHelp controlHelp;
 
 	Player player;
+	Music sound;
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];

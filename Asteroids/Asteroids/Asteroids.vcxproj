@@ -31,6 +31,7 @@
     <ClInclude Include="level.h" />
     <ClInclude Include="license.h" />
     <ClInclude Include="mainMenu.h" />
+    <ClInclude Include="Music.h" />
     <ClInclude Include="MyVector3.h" />
     <ClInclude Include="pauseMenu.h" />
     <ClInclude Include="pickUpSystem.h" />
@@ -51,6 +52,7 @@
     <ClCompile Include="license.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mainMenu.cpp" />
+    <ClCompile Include="Music.cpp" />
     <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
@@ -129,7 +131,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SFML_SDK)/include</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SFML_SDK)/lib</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>

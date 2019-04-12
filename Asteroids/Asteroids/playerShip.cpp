@@ -27,6 +27,14 @@ void Player::update()
 	sprite.setOrigin(location.x - REAL_SIZE / 2, location.y - REAL_SIZE / 2);
 	sprite.setPosition(location);
 	checkBorders();
+	if (velocity.x != 0)
+	{
+		lookDirection = velocity;
+	}
+	else if (velocity.y != 0)
+	{
+		lookDirection = velocity;
+	}
 }
 
 
@@ -62,16 +70,19 @@ void Player::rotate(sf::Event t_event)
 	if (t_event.key.code == sf::Keyboard::Left)
 	{
 		moveLeft();
+		sound.thePlayerSound();
 	}
 
 	if (t_event.key.code == sf::Keyboard::Right)
 	{
 		moveRight();
+		sound.thePlayerSound();
 	}
 
 	if (t_event.key.code == sf::Keyboard::Up)
 	{
 		moveForward();
+		sound.thePlayerSound();
 	}
 
 	if (t_event.key.code == sf::Keyboard::Down)
@@ -126,4 +137,9 @@ void Player::checkBorders()
 	{
 		location.y = location.y + 880;
 	}
+}
+
+void Player::pos()
+{
+	sprite.setPosition(location);
 }

@@ -116,6 +116,7 @@ void Game::render()
 	if (currentState == GameState::MainMenuScreen)
 	{
 		menu.draw(m_window);
+		sound.menuSound();
 	}
 
 	if (currentState == GameState::HelpScreen)
