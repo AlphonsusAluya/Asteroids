@@ -1,10 +1,8 @@
 
 #include "game.h"
 
-
-
 Game::Game() :
-	m_window{ sf::VideoMode{ 800, 600, 32 }, "SFML Game" },
+	m_window{ sf::VideoMode{ 800, 600, 32 }, "Asteroids" },
 	m_exitGame{ false } //when true game will exit
 {
 	Game::currentState = GameState::LicenseScreen;
@@ -12,11 +10,9 @@ Game::Game() :
 	setupSprite(); // load texture
 }
 
-
 Game::~Game()
 {
 }
-
 
 void Game::run()
 {
@@ -64,9 +60,49 @@ void Game::processEvents()
 					currentState = GameState::MainMenuScreen;
 				}
 			}
+
+			if (currentState == GameState::UpgradeScreen)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+				{
+					currentState = GameState::MainMenuScreen;
+				}
+			}
+
+			if (currentState == GameState::UpgradeHelp)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+				{
+					currentState = GameState::HelpScreen;
+				}
+			}
+
+			if (currentState == GameState::PickUpHelp)
+			{
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+				{
+					currentState = GameState::HelpScreen;
+				}
+			}
+
+
+				if (currentState == GameState::GamePlay)
+				{
+					player.rotate(event);
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
+					{
+
+						for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+						{
+							MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
+							smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
+						}
+
+					}
+				}
 			
 		}
-		mouseClicks(event);
+		mouseClicks(event, m_window);
 	}
 }
 /// <summary>
@@ -77,18 +113,21 @@ void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
 	{
-		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		if (paused == false)
 		{
-			asteroidsL[i].update();
-			mediumAsteroids[i].update();
-		}
-		player.update();
-		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
-		{
-			smallAsteroids[i].update();
+			for (int i = 0; i < MAX_ASTEROIDS; i++)
+			{
+				asteroidsL[i].update();
+				mediumAsteroids[i].update();
+			}
+			player.update();
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+			{
+				smallAsteroids[i].update();
+			}
 		}
 	}
-	
+
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -161,6 +200,24 @@ void Game::render()
 
 	}
 
+	if (currentState == GameState::PauseMenu)
+	{
+		
+		m_window.draw(backRoundSprite);
+		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		{
+			asteroidsL[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);
+		}
+
+		player.draw(m_window);
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+		{
+			smallAsteroids[i].draw(m_window);
+		}
+		pause.draw(m_window);
+	}
 	m_window.display();
 }
 
@@ -185,7 +242,7 @@ void Game::setupFontAndText()
 	license.init(m_ArialBlackfont);
 	menu.init(m_ArialBlackfont);
 	help.init(m_ArialBlackfont);
-
+	pause.init(m_ArialBlackfont);
 	upgrade.init(m_ArialBlackfont);
 	upgradeHelp.init(m_ArialBlackfont);
 	pickUp.init(m_ArialBlackfont);
@@ -209,34 +266,80 @@ void Game::setupSprite()
 	backRoundSprite.setTexture(backRoundTexture);
 }
 
-void Game::mouseClicks(sf::Event t_event)
+void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 {
 	if (currentState == GameState::MainMenuScreen)
 	{
 		helpTimer = 30;
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-			sf::Vector2i position = sf::Mouse::getPosition();
+			sf::Vector2i position = sf::Mouse::getPosition(t_window);
 
-			if (position.y <= 450) // first button / start game
+			if (position.y <= 220) // first button / start game
 			{
 				std::cout << "gameplay";
 				currentState = GameState::GamePlay;
 			}
 
-			if (position.y >= 451 && position.y <= 550) // help menu
+			if (position.y >= 220 && position.y <= 320) // help menu
 			{
 				std::cout << "help";
 				currentState = GameState::HelpScreen;
 			}
 
-			if (position.y >= 551) // help menu
+			if (position.y >= 321) // help menu
 			{
 				std::cout << "upgrade";
 				currentState = GameState::UpgradeScreen;
 			}
 		}
+
+		
 	}
+
+
+
+	if (currentState == GameState::PauseMenu)
+	{
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+				sf::Vector2i position = sf::Mouse::getPosition(t_window);
+				int output = position.y;
+				std::cout << output;
+				if (position.y <= 220) // first button / start game
+				{
+					std::cout << "gameplay mup";
+					paused = false;
+					currentState = GameState::GamePlay;
+				}
+
+				if (position.y >= 220 && position.y <= 320) // help menu
+				{
+					std::cout << "help";
+					currentState = GameState::HelpScreen;
+				}
+
+				if (position.y >= 321) // help menu
+				{
+					std::cout << "upgrade";
+					currentState = GameState::UpgradeScreen;
+				}
+			}		
+	}
+	if (currentState == GameState::GamePlay)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i position = sf::Mouse::getPosition(t_window);
+
+			if (position.y <= 40 && position.x <= 40) // first button / start game
+			{
+				currentState = GameState::PauseMenu;
+				paused = true;
+			}
+		}
+	}
+
 	if (currentState == GameState::ControlHelp)
 	{
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
@@ -255,73 +358,26 @@ void Game::mouseClicks(sf::Event t_event)
 		{
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				sf::Vector2i position = sf::Mouse::getPosition();
+				sf::Vector2i position = sf::Mouse::getPosition(t_window);
 
-				if (position.y <= 450) // controls 
+				if (position.y <= 220) // first button / start game
 				{
 					currentState = GameState::ControlHelp;
 				}
 
-				if (position.y >= 451 && position.y <= 550) // help menu
+				if (position.y >= 220 && position.y <= 320) // help menu
 				{
 					currentState = GameState::PickUpHelp;
 				}
 
-				if (position.y >= 551) // help menu
+				if (position.y >= 321) // help menu
 				{
 					currentState = GameState::UpgradeHelp;
 				}
 			}
 		}
 	}
-	if (currentState == GameState::UpgradeScreen)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
-		{
-			currentState = GameState::MainMenuScreen;
-		}
-	}
 
-	if (currentState == GameState::UpgradeHelp)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			currentState = GameState::HelpScreen;
-		}
-	}
-
-	if (currentState == GameState::PickUpHelp)
-	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
-		{
-			currentState = GameState::HelpScreen;
-		}
-	}
-
-	if (currentState == GameState::GamePlay)
-	{
-		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-		{
-			sf::Vector2i position = sf::Mouse::getPosition(m_window);
-
-			if (position.y <= 40 && position.x <= 40) // first button / start game
-			{
-				std::cout << "main menu ";
-				currentState = GameState::MainMenuScreen;
-			}
-		}
-		player.rotate(t_event);
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
-		{
-
-			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
-			{
-				MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE/2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE/2, 0 };
-				smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
-			}
-	
-		}
-	}
 }
 void Game::timer()
 {
@@ -331,7 +387,7 @@ void Game::timer()
 
 	if (asteroidResetTimer < 1)
 	{
-		asteroidResetTimer = 30;
+		asteroidResetTimer = 3;
 	}
 }
 void Game::changeState()

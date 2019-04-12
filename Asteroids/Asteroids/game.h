@@ -19,7 +19,11 @@
 #include "playerShip.h"
 #include "controlHelp.h"
 #include "globalConstant.h"
+<<<<<<< HEAD
 #include "Music.h"
+=======
+#include "pauseMenu.h"
+>>>>>>> f4d2c9caef884ca57be80f2ad28603c91ef874cd
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -36,11 +40,16 @@ class Game
 	UpgradeHelp upgradeHelp;
 	PickUp pickUp;
 
+	PauseMenu pause;
 	ControlHelp controlHelp;
 
 	Player player;
+<<<<<<< HEAD
 	Music sound;
 
+=======
+	bool paused = false;
+>>>>>>> f4d2c9caef884ca57be80f2ad28603c91ef874cd
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
 
@@ -63,7 +72,7 @@ public:
 
 	void setupFontAndText();
 	void setupSprite();
-	void mouseClicks(sf::Event t_event);
+	void mouseClicks(sf::Event t_event, sf::RenderWindow &t_window);
 	bool asteroidShot = false;
 	sf::RenderWindow m_window; // main SFML window
 	sf::Font m_ArialBlackfont; // font used by message

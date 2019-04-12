@@ -22,7 +22,7 @@ public:
 	sf::Sprite sprite;
 	sf::Texture asteroidTexture;
 
-
+	int northOrSouth =1;
 	sf::Sprite getLargeAsteroid();
 
 	void wasShot();

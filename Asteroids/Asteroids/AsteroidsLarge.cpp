@@ -27,14 +27,27 @@ void AsteroidsLarge::positioning()
 	double randomVelocityX = 0;
 	double randomVelocityY = 0;
 	
-	randomVelocityX = rand() % 9 - 5;
+	randomVelocityX = rand() % 10 - 5;
 
-	randomVelocityY = rand() % 4 + 1;
+	
 
 	randomX = rand() % 600 + 1;
-	originalLocation = { randomX,-75,0 };
 
-	velocity = { randomVelocityX,randomVelocityY,0 };
+	int northOrSouth = rand() % 2 + 1;
+
+	if (northOrSouth == 1)
+	{
+		originalLocation = { randomX,0,0 };
+		randomVelocityY = rand() % 6 + 1;
+		velocity = { randomVelocityX,randomVelocityY,0 };
+	}
+
+	if (northOrSouth == 2)
+	{
+		originalLocation = { randomX,800,0 };
+		randomVelocityY = rand() % 1 - 6;
+		velocity = { randomVelocityX,randomVelocityY,0 };
+	}
 
 }
 
@@ -51,7 +64,8 @@ void AsteroidsLarge::checkBorders()
 		location = originalLocation;
 	}
 
-	if (location.y > 805)
+
+	if (location.y > 805 || location.y < -5)
 	{
 		location = originalLocation;
 	}
