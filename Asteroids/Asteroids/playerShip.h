@@ -12,8 +12,8 @@ class Player
 	sf::Texture texture;
 	sf::Texture icon;
 	float REAL_SIZE = 0;
-	sf::Vector2f lookDirection = { 0,-1 };
-	MyVector3 location;
+	
+
 	MyVector3 velocity;
 
 
@@ -22,9 +22,10 @@ class Player
 	float speed = 0.0f;
 	float acceleration = 0.17f;
 	const float MAX_FORWARD_SPEED = 40.0f;
-	MyVector3 lookDirection;
+	
 public:
-
+	MyVector3 location;
+	sf::Vector2f lookDirection = { 0,-1 };
 	Player();
 	void draw(sf::RenderWindow & window);
 	sf::Sprite getBody();
@@ -36,9 +37,9 @@ public:
 	void update();
 	void moveDown();
 	void checkBorders();
-<<<<<<< HEAD
+
 	void pos();
-=======
+
 	void friction();
->>>>>>> f4d2c9caef884ca57be80f2ad28603c91ef874cd
+
 };

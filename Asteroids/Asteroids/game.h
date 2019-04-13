@@ -19,11 +19,9 @@
 #include "playerShip.h"
 #include "controlHelp.h"
 #include "globalConstant.h"
-<<<<<<< HEAD
 #include "Music.h"
-=======
 #include "pauseMenu.h"
->>>>>>> f4d2c9caef884ca57be80f2ad28603c91ef874cd
+#include "bullets.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -44,12 +42,12 @@ class Game
 	ControlHelp controlHelp;
 
 	Player player;
-<<<<<<< HEAD
 	Music sound;
+	Bullets bullet[NUMOFBULLETS];
 
-=======
+
 	bool paused = false;
->>>>>>> f4d2c9caef884ca57be80f2ad28603c91ef874cd
+
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
 

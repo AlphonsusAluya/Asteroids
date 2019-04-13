@@ -17,7 +17,12 @@ void Music::loadContent()
 		std::cout << "error";
 	}
 
-	if (!buffer2.loadFromFile("ASSETS/AUDIO/menumusic.mp3"))
+	if (!buffer2.loadFromFile("ASSETS/AUDIO/menumusic2.ogg"))
+	{
+		std::cout << "error";
+	}
+
+	if (!buffer3.loadFromFile("ASSETS/AUDIO/Asteroid breaking.wav"))
 	{
 		std::cout << "error";
 	}
@@ -39,6 +44,12 @@ void Music::menuSound()
 {
 	menuScreenSound.setBuffer(buffer2);
 	menuScreenSound.play();
+}
+
+void Music::gamePlaySound()
+{
+	asteroid.setBuffer(buffer3);
+	asteroid.play();
 }
 
 void Music::stop()

@@ -8,6 +8,11 @@ Game::Game() :
 	Game::currentState = GameState::LicenseScreen;
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
+	for (int i = 0; i < NUMOFBULLETS; i++)
+	{
+		bullet[i].setupBullets();
+	}
+	
 }
 
 Game::~Game()
@@ -42,6 +47,8 @@ void Game::processEvents()
 	sf::Event event;
 	while (m_window.pollEvent(event))
 	{
+		
+		
 		if (sf::Event::Closed == event.type) // window message
 		{
 			m_window.close();
@@ -99,6 +106,10 @@ void Game::processEvents()
 						}
 
 					}
+					for (int i = 0; i < NUMOFBULLETS; i++)
+					{
+						bullet[i].fire(event);
+					}
 				}
 			
 		}
@@ -113,6 +124,12 @@ void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
 	{
+		for (int i = 0; i < NUMOFBULLETS; i++)
+		{
+			bullet[i].update();
+		}
+		
+		
 		if (paused == false)
 		{
 			for (int i = 0; i < MAX_ASTEROIDS; i++)
@@ -184,6 +201,7 @@ void Game::render()
 
 	if (currentState == GameState::GamePlay)
 	{
+		sound.gamePlaySound();
 		m_window.draw(backRoundSprite);
 		for (int i = 0; i < MAX_ASTEROIDS; i++)
 		{
@@ -192,7 +210,10 @@ void Game::render()
 		}
 
 		player.draw(m_window);
-
+		for (int i = 0; i < NUMOFBULLETS; i++)
+		{
+			bullet[i].draw(m_window);
+		}
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			smallAsteroids[i].draw(m_window);

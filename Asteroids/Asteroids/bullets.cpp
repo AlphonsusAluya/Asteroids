@@ -5,11 +5,16 @@ Bullets::Bullets()
 	loadContent();
 }
 
+sf::Sprite Bullets::getBody()
+{
+	return bullet[NUMOFBULLETS];
+}
+
 void Bullets::loadContent()
 {
 	if (!texture.loadFromFile("ASSETS/IMAGES/bullet16.png"))
 	{
-		std::cout << "error with large asteroid image";
+		std::cout << "error bullets";
 	}
 	bullet[NUMOFBULLETS].setTexture(texture);
 }
@@ -46,7 +51,12 @@ void Bullets::update()
 			}
 		}
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+
+}
+
+void Bullets::fire(sf::Event t_event)
+{
+	if (t_event.key.code == sf::Keyboard::Space)
 	{
 		if (waitCounter == 0)
 		{
@@ -54,14 +64,29 @@ void Bullets::update()
 			{
 				if (bullet[i].getPosition().x == -2000)
 				{
-					bullet[i].setPosition(location);
+					bullet[i].setPosition(player.location);
+					bulletVelocity[i] = player.lookDirection;
+					bulletVelocity[i].x *= 2;
+					bulletVelocity[i].y *= 2;
+
+					waitCounter = 10;
+					break;
 				}
 			}
+		}
+
+		if (waitCounter > 0)
+		{
+			waitCounter--;
 		}
 	}
 }
 
-void Bullets::fire()
+void Bullets::draw(sf::RenderWindow & window)
 {
-
+	for (int i = 0; i < NUMOFBULLETS; i++)
+	{
+		window.draw(bullet[i]);
+	}
+	
 }

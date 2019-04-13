@@ -10,10 +10,12 @@ class Music
 	sf::SoundBuffer buffer;
 	sf::SoundBuffer buffer1;
 	sf::SoundBuffer buffer2;
+	sf::SoundBuffer buffer3;
 
 	sf::Sound playerSound;
 	sf::Sound laser;
 	sf::Sound menuScreenSound;
+	sf::Sound asteroid;
 
 public:
 	Music();
@@ -21,5 +23,6 @@ public:
 	void thePlayerSound();
 	void laserSound();
 	void menuSound();
+	void gamePlaySound();
 	void stop();
 };

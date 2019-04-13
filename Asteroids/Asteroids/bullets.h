@@ -17,10 +17,12 @@ class Bullets
 	Player player;
 public:
 	Bullets();
+	sf::Sprite getBody();
 	void loadContent();
 	void setupBullets();
 	void update();
-	void fire();
+	void fire(sf::Event t_event);
+	void draw(sf::RenderWindow &window);
 
 
 };
