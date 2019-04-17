@@ -16,7 +16,51 @@ void Bullets::loadContent()
 	{
 		std::cout << "error bullets";
 	}
-	bullet[NUMOFBULLETS].setTexture(texture);
+	for (int i = 0; i < NUMOFBULLETS; i++)
+	{
+		bullet[i].setTexture(texture);
+	}
+	
+}
+
+int Bullets::waitToFire()
+{
+	return waitCounter;
+}
+
+sf::Vector2f Bullets::bulletVelocitys()
+{
+	return bulletVelocity[NUMOFBULLETS];
+}
+
+bool Bullets::getTimeToFire()
+{
+	return readyToFire;
+}
+
+void Bullets::setBulletVelocity(float t_x, float t_y)
+{
+	bulletVelocity[NUMOFBULLETS] = { t_x,t_y };
+}
+
+void Bullets::setTimeToFire(bool m_bool)
+{
+	readyToFire = m_bool;
+}
+
+void Bullets::setWaitCounter(int t_waitCounter)
+{
+	waitCounter = t_waitCounter;
+}
+
+void Bullets::slowerWaitCounter(int t_slow)
+{
+	waitCounter = waitCounter - t_slow;
+}
+
+void Bullets::setPos(sf::Vector2f t_pos)
+{
+	bullet[NUMOFBULLETS].setPosition(t_pos);
 }
 
 void Bullets::setupBullets()
@@ -54,32 +98,41 @@ void Bullets::update()
 
 }
 
-void Bullets::fire(sf::Event t_event)
+void Bullets::fire()
 {
-	if (t_event.key.code == sf::Keyboard::Space)
-	{
-		if (waitCounter == 0)
+		if (bullet[NUMOFBULLETS].getPosition().x != -2000)
 		{
 			for (int i = 0; i < NUMOFBULLETS; i++)
 			{
-				if (bullet[i].getPosition().x == -2000)
+				bullet[i].move(bulletVelocity[i]);
+				if (bullet[i].getPosition().x < 600)
 				{
-					bullet[i].setPosition(player.location);
-					bulletVelocity[i] = player.lookDirection;
-					bulletVelocity[i].x *= 2;
-					bulletVelocity[i].y *= 2;
-
-					waitCounter = 10;
-					break;
+					bullet[i].setPosition(-2000, -2000);
+					bulletVelocity[i] = { 0.0,0.0 };
+					readyToFire = true;
+				}
+				if (bullet[i].getPosition().x > 0)
+				{
+					bullet[i].setPosition(-2000, -2000);
+					bulletVelocity[i] = { 0.0,0.0 };
+					readyToFire = true;
+				}
+				if (bullet[i].getPosition().y < 800)
+				{
+					bullet[i].setPosition(-2000, -2000);
+					bulletVelocity[i] = { 0.0,0.0 };
+					readyToFire = true;
+				}
+				if (bullet[i].getPosition().x > 0)
+				{
+					bullet[i].setPosition(-2000, -2000);
+					bulletVelocity[i] = { 0.0,0.0 };
+					readyToFire = true;
 				}
 			}
+		
 		}
-
-		if (waitCounter > 0)
-		{
-			waitCounter--;
-		}
-	}
+	
 }
 
 void Bullets::draw(sf::RenderWindow & window)

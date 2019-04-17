@@ -106,10 +106,14 @@ void Game::processEvents()
 						}
 
 					}
-					for (int i = 0; i < NUMOFBULLETS; i++)
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 					{
-						bullet[i].fire(event);
+						for (int i = 0; i < NUMOFBULLETS; i++)
+						{
+							bullet[i].fire();
+						}
 					}
+					
 				}
 			
 		}

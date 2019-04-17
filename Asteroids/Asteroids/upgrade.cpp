@@ -7,6 +7,21 @@ Upgrade::Upgrade()
 
 }
 
+void Upgrade::loadContent()
+{
+	if (!texture.loadFromFile("ASSETS/IMAGES/gems.png"))
+	{
+		std::cout << "error with large asteroid image";
+	}
+}
+
+sf::Sprite Upgrade::getBody()
+{
+	return body;
+}
+
+
+
 
 void Upgrade::init(sf::Font & font)
 {
@@ -23,6 +38,11 @@ void Upgrade::init(sf::Font & font)
 void Upgrade::draw(sf::RenderWindow & window)
 {
 	window.draw(message);
+}
+
+void Upgrade::defense()
+{
+
 }
 
 

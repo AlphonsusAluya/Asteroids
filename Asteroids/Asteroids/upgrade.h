@@ -9,15 +9,18 @@
 
 class Upgrade
 {
-
+	sf::Texture texture;
+	sf::Sprite body;
 public:
 
 	Upgrade();
 
-
+	void loadContent();
+	sf::Sprite getBody();
 	sf::Text message;
 	sf::Text pressAnyKey;
 	void init(sf::Font &font);
 	void draw(sf::RenderWindow &window);
+	void defense();
 };
 
