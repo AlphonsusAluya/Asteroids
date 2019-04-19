@@ -13,8 +13,8 @@ Player::Player()
 	sprite.setTexture(texture);
 	REAL_SIZE = PLAYER_SIZE * 0.2;
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale(0.2, 0.2);
-	
+	sprite.setScale(0.15, 0.15);
+
 	location = { 200,300,0 };
 	sprite2.setTexture(icon);
 }
@@ -25,14 +25,6 @@ void Player::update()
 	location = location + velocity;
 	sprite.setPosition(location);
 	checkBorders();
-	if (velocity.x != 0)
-	{
-		lookDirection = velocity;
-	}
-	else if (velocity.y != 0)
-	{
-		lookDirection = velocity;
-	}
 }
 
 
@@ -55,82 +47,38 @@ sf::Sprite Player::getBody2()
 
 void Player::rotate(sf::Event t_event)
 {
-	if (t_event.key.code == sf::Keyboard::A)
-	{
-		sprite.rotate(-3);
-	}
-
-	if (t_event.key.code == sf::Keyboard::D)
-	{
-		sprite.rotate(3);
-	}
-
-	
+	MyVector3 force = { 0,0,0 };
 	lookDirection.x = cos(angle);
 	lookDirection.y = sin(angle);
 
+	sprite.setRotation(angle * (180 / 3.14159265359));
 
-	if (t_event.key.code == sf::Keyboard::Left)
+
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		moveLeft();
-		sound.thePlayerSound();
-	}
-
-	
-
-
-	if (t_event.key.code == sf::Keyboard::Right)
-	{
-
-		moveRight();
-		sound.thePlayerSound();
-
 		angle -= 0.2;
-
 	}
-	if (t_event.key.code == sf::Keyboard::Up)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-
-		moveForward();
-		sound.thePlayerSound();
-
 		angle += 0.2;
-
 	}
-	moveForward();
-	sound.thePlayerSound();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		moveDown();
+		force = force + lookDirection;
+		//if (speed < MAX_FORWARD_SPEED)
+		//{
+		//	speed += acceleration;
+		//}
+
 		sound.thePlayerSound();
 	}
-	
+
+	//velocity.y *= speed;
+	//velocity.x *= speed;
+	velocity = velocity + force;
 }
 
-void Player::moveLeft()
-{
-	MyVector3 move = { -1, 0, 0 };
-	velocity = velocity + move;
-
-}
-
-void Player::moveRight()
-{
-	MyVector3 move = { 1, 0, 0 };
-	velocity = velocity + move;
-}
-
-void Player::moveForward()
-{
-	MyVector3 move = { 0, -1, 0 };
-	velocity = velocity + move;
-}
-
-void Player::moveDown()
-{
-	MyVector3 move = { 0, 1, 0 };
-	velocity = velocity + move;
-	
-}
 
 void Player::checkBorders()
 {
@@ -149,20 +97,15 @@ void Player::checkBorders()
 		location.y = location.y - 840;
 	}
 
-	if (location.y < 0 -REAL_SIZE)
+	if (location.y < 0 - REAL_SIZE)
 	{
 		location.y = location.y + 840;
 	}
 }
 
-
-void Player::pos()
-{
-	sprite.setPosition(location);
-}
 void Player::friction()
 {
 	velocity.x = velocity.x * 0.996;
 	velocity.y = velocity.y * 0.996;
-
 }
+
