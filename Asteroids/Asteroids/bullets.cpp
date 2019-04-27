@@ -3,11 +3,12 @@
 Bullets::Bullets()
 {
 	loadContent();
+	bullet.setOrigin(100, 100);
 }
 
 sf::Sprite Bullets::getBody()
 {
-	return bullet[NUMOFBULLETS];
+	return bullet; // returns the body 
 }
 
 void Bullets::loadContent()
@@ -16,130 +17,122 @@ void Bullets::loadContent()
 	{
 		std::cout << "error bullets";
 	}
-	for (int i = 0; i < NUMOFBULLETS; i++)
-	{
-		bullet[i].setTexture(texture);
-	}
+	
+		bullet.setTexture(texture); // sets texture
+	
 	
 }
 
 int Bullets::waitToFire()
 {
-	return waitCounter;
+	return waitCounter; // wait to fire 
 }
 
 sf::Vector2f Bullets::bulletVelocitys()
 {
-	return bulletVelocity[NUMOFBULLETS];
+	return bulletVelocity; // returns the velocity
 }
 
-bool Bullets::getTimeToFire()
-{
-	return readyToFire;
-}
 
 void Bullets::setBulletVelocity(float t_x, float t_y)
 {
-	bulletVelocity[NUMOFBULLETS] = { t_x,t_y };
+	bulletVelocity = { t_x,t_y };
 }
 
-void Bullets::setTimeToFire(bool m_bool)
-{
-	readyToFire = m_bool;
-}
 
 void Bullets::setWaitCounter(int t_waitCounter)
 {
-	waitCounter = t_waitCounter;
+	waitCounter = t_waitCounter; // sets wait to fire counter
 }
 
 void Bullets::slowerWaitCounter(int t_slow)
 {
-	waitCounter = waitCounter - t_slow;
+	waitCounter = waitCounter - t_slow; // slows it down this will be used for a power up
 }
 
 void Bullets::setPos(sf::Vector2f t_pos)
 {
-	bullet[NUMOFBULLETS].setPosition(t_pos);
+	t_pos = player.location;
+	bullet.setPosition(t_pos); // sets position 
 }
 
-void Bullets::setupBullets()
-{
-	screenArea.setSize(sf::Vector2f(800, 600));
-	for (int i = 0; i < NUMOFBULLETS; i++)
-	{
-		bullet[i].setScale(10, 10);
-		bullet[i].setPosition(-2000, -2000);
-		
-	}
-	
-	for (int i = 0; i < NUMOFBULLETS; i++)
-	{
-		bulletVelocity[i].x = 0;
-		bulletVelocity[i].y = 0;
-	}
-}
-
-void Bullets::update()
-{
-	for (int i = 0; i < NUMOFBULLETS; i++)
-	{
-		if (bullet[i].getPosition().x != -2000)
-		{
-			bullet[i].move(bulletVelocity[i]);
-			if (screenArea.getGlobalBounds().intersects(bullet[i].getGlobalBounds()) == 2)
-			{
-				bullet[i].setPosition(-2000, -2000);
-				bulletVelocity[i].x = 0;
-				bulletVelocity[i].y = 0;
-			}
-		}
-	}
-
-}
+//void Bullets::setupBullets()
+//{
+//	screenArea.setSize(sf::Vector2f(800, 600));
+//	
+//		bullet.setScale(10, 10);
+//		bullet.setPosition(-2000, -2000);
+//		
+//	
+//	
+//	
+//		bulletVelocity.x = 0;
+//		bulletVelocity.y = 0;
+//	
+//}
+//
+//void Bullets::update()
+//{
+//	
+//		if (bullet.getPosition().x != -2000)
+//		{
+//			bullet.move(bulletVelocity);
+//			if (screenArea.getGlobalBounds().intersects(bullet.getGlobalBounds()) == 2)
+//			{
+//				bullet.setPosition(-2000, -2000);
+//				bulletVelocity.x = 0;
+//				bulletVelocity.y = 0;
+//			}
+//		}
+//	
+//
+//}
 
 void Bullets::fire()
 {
-		if (bullet[NUMOFBULLETS].getPosition().x != -2000)
+		if (bullet.getPosition().x != -2000) // checks the bullet
 		{
-			for (int i = 0; i < NUMOFBULLETS; i++)
-			{
-				bullet[i].move(bulletVelocity[i]);
-				if (bullet[i].getPosition().x < 600)
+				bullet.move(bulletVelocity);
+				if (bullet.getPosition().x > 600)
 				{
-					bullet[i].setPosition(-2000, -2000);
-					bulletVelocity[i] = { 0.0,0.0 };
+					bullet.setPosition(-2000, -2000);
+					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
-				if (bullet[i].getPosition().x > 0)
+				if (bullet.getPosition().x < 0)
 				{
-					bullet[i].setPosition(-2000, -2000);
-					bulletVelocity[i] = { 0.0,0.0 };
+					bullet.setPosition(-2000, -2000);
+					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
-				if (bullet[i].getPosition().y < 800)
+				if (bullet.getPosition().y > 800)
 				{
-					bullet[i].setPosition(-2000, -2000);
-					bulletVelocity[i] = { 0.0,0.0 };
+					bullet.setPosition(-2000, -2000);
+					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
-				if (bullet[i].getPosition().x > 0)
+				if (bullet.getPosition().y < 0)
 				{
-					bullet[i].setPosition(-2000, -2000);
-					bulletVelocity[i] = { 0.0,0.0 };
+					bullet.setPosition(-2000, -2000);
+					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
-			}
+			
 		
 		}
 	
+}
+
+void Bullets::bulletRotate()
+{
+	MyVector3 force = { 0,0,0 }; // rotates it
+	lookDirection.x = cos(angle);
+	lookDirection.y = sin(angle);
+
+	bullet.setRotation(angle * (180 / 3.14159265359));
 }
 
 void Bullets::draw(sf::RenderWindow & window)
 {
-	for (int i = 0; i < NUMOFBULLETS; i++)
-	{
-		window.draw(bullet[i]);
-	}
-	
+	window.draw(bullet); // draws the bullets 
 }

@@ -8,11 +8,11 @@ Game::Game() :
 	Game::currentState = GameState::LicenseScreen;
 	setupFontAndText(); // load font 
 	setupSprite(); // load texture
-	for (int i = 0; i < NUMOFBULLETS; i++)
+	/*for (int i = 0; i < NUMOFBULLETS; i++)
 	{
 		bullet[i].setupBullets();
 	}
-	
+	*/
 }
 
 Game::~Game()
@@ -64,7 +64,7 @@ void Game::processEvents()
 			{
 				if (sf::Keyboard::isKeyPressed)
 				{
-					currentState = GameState::MainMenuScreen;
+					currentState = GameState::MainMenuScreen; // menu screen 
 				}
 			}
 
@@ -72,7 +72,7 @@ void Game::processEvents()
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
 				{
-					currentState = GameState::MainMenuScreen;
+					currentState = GameState::MainMenuScreen; // when in the upgrade screen it reurns back to the menu screen
 				}
 			}
 
@@ -80,7 +80,7 @@ void Game::processEvents()
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 				{
-					currentState = GameState::HelpScreen;
+					currentState = GameState::HelpScreen; // goes to the help screen from the upgrade help
 				}
 			}
 
@@ -88,7 +88,7 @@ void Game::processEvents()
 			{
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
 				{
-					currentState = GameState::HelpScreen;
+					currentState = GameState::HelpScreen; // goes to the help screen from the pickup help if requested
 				}
 			}
 
@@ -106,13 +106,7 @@ void Game::processEvents()
 						}
 
 					}
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-					{
-						for (int i = 0; i < NUMOFBULLETS; i++)
-						{
-							bullet[i].fire();
-						}
-					}
+					
 					
 				}
 			
@@ -128,11 +122,13 @@ void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
 	{
-		for (int i = 0; i < NUMOFBULLETS; i++)
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
-			bullet[i].update();
+			int x = player.velocity.x;
+			int y = player.velocity.y;
+			bullet.setBulletVelocity(x, y);			// the bullets firing
+			bullet.fire();
 		}
-		
 		
 		if (paused == false)
 		{
@@ -142,7 +138,7 @@ void Game::update(sf::Time t_deltaTime)
 				mediumAsteroids[i].update();
 			}
 			player.update();
-			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)		//if the game isnt paused the game will continue as normal
 			{
 				smallAsteroids[i].update();
 			}
@@ -165,42 +161,42 @@ void Game::render()
 	m_window.clear();
 	if (currentState == GameState::LicenseScreen)
 	{
-		license.draw(m_window);
+		license.draw(m_window);			//draws the screen
 	}
 	
 	if (currentState == GameState::SplashScreen)
 	{
-		splash.draw(m_window);
+		splash.draw(m_window);		//draws the screen
 	}
 
 	if (currentState == GameState::MainMenuScreen)
 	{
-		menu.draw(m_window);
-		sound.menuSound();
+		menu.draw(m_window);		//draws the screen
+		sound.menuSound(); // makes menu noise
 	}
 
 	if (currentState == GameState::HelpScreen)
 	{
-		help.draw(m_window);
+		help.draw(m_window);		//draws the screen
 	}
 	if (currentState == GameState::ControlHelp)
 	{
-		controlHelp.draw(m_window);
+		controlHelp.draw(m_window);		//draws the screen
 	}
 
 	if (currentState == GameState::UpgradeScreen)
 	{
-		upgrade.draw(m_window);
+		upgrade.draw(m_window);		//draws the screen
 	}
 
 	if (currentState == GameState::UpgradeHelp)
 	{
-		upgradeHelp.draw(m_window);
+		upgradeHelp.draw(m_window);		//draws the screen
 	}
 
 	if (currentState == GameState::PickUpHelp)
 	{
-		pickUp.draw(m_window);
+		pickUp.draw(m_window);		//draws the screen
 	}
 
 	if (currentState == GameState::GamePlay)
@@ -210,14 +206,11 @@ void Game::render()
 		for (int i = 0; i < MAX_ASTEROIDS; i++)
 		{
 			asteroidsL[i].draw(m_window);
-			mediumAsteroids[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);		//draws the screen and anything necessary for the game play
 		}
 
 		player.draw(m_window);
-		for (int i = 0; i < NUMOFBULLETS; i++)
-		{
-			bullet[i].draw(m_window);
-		}
+		bullet.draw(m_window);
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			smallAsteroids[i].draw(m_window);
@@ -232,7 +225,7 @@ void Game::render()
 		for (int i = 0; i < MAX_ASTEROIDS; i++)
 		{
 			asteroidsL[i].draw(m_window);
-			mediumAsteroids[i].draw(m_window);
+			mediumAsteroids[i].draw(m_window);			//draws the screen and anything necessary for the pause menu
 		}
 
 		player.draw(m_window);
@@ -249,7 +242,7 @@ void Game::render()
 /// <summary>
 /// load the font and setup the text message for screen
 /// </summary>
-void Game::setupFontAndText()
+void Game::setupFontAndText() // sets up fonts and texts
 {
 	if (!m_ArialBlackfont.loadFromFile("ASSETS\\FONTS\\ariblk.ttf"))
 	{
@@ -288,7 +281,7 @@ void Game::setupSprite()
 	}
 
 
-	backRoundSprite.setTexture(backRoundTexture);
+	backRoundSprite.setTexture(backRoundTexture); // sets sprite
 }
 
 void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
@@ -367,14 +360,14 @@ void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 
 	if (currentState == GameState::ControlHelp)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::T))  // goes to help screen if needed
 		{
 			currentState = GameState::HelpScreen;
 		}
 	}
 	if (currentState == GameState::HelpScreen)
 	{
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R))
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R)) // goes to the main menu
 		{
 			currentState = GameState::MainMenuScreen;
 		}
@@ -421,7 +414,7 @@ void Game::changeState()
 	{
 		if (licenseTimer <= 0)
 		{	
-			currentState = GameState::SplashScreen;
+			currentState = GameState::SplashScreen; // timer to change screen
 		}
 	}
 }

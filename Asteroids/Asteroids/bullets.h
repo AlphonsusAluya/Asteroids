@@ -10,10 +10,14 @@ class Bullets
 	bool readyToFire = true;
 	int waitCounter = 10;
 	sf::RectangleShape screenArea;
-	sf::Sprite bullet[NUMOFBULLETS];
-	sf::Vector2f bulletVelocity[NUMOFBULLETS];
+	sf::Sprite bullet;
+	sf::Vector2f bulletVelocity;
 	sf::Texture texture;
 	MyVector3 location;
+	MyVector3 velocity;
+	sf::Vector2f lookDirection = { 0,-1 };
+
+	float angle = 3.14159265359 / 16.0;
 	Player player;
 public:
 	Bullets();
@@ -31,6 +35,7 @@ public:
 	void setupBullets();
 	void update();
 	void fire();
+	void bulletRotate();
 	void draw(sf::RenderWindow &window);
 
 

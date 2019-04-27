@@ -4,6 +4,7 @@
 #include "MyVector3.h"
 #include "globalConstant.h"
 #include "Music.h"
+
 class Player
 {
 	Music sound;
@@ -14,7 +15,7 @@ class Player
 	float REAL_SIZE = 0;
 	
 
-	MyVector3 velocity;
+	
 
 
 	float angle = 3.14159265359 / 16.0;
@@ -25,6 +26,7 @@ class Player
 	
 public:
 	MyVector3 location;
+	MyVector3 velocity;
 	sf::Vector2f lookDirection = { 0,-1 };
 	Player();
 	void draw(sf::RenderWindow & window);

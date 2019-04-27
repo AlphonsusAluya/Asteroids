@@ -53,7 +53,7 @@ void Player::rotate(sf::Event t_event)
 
 	sprite.setRotation(angle * (180 / 3.14159265359));
 
-
+	
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{

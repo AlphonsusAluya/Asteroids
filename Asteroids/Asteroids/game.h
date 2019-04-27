@@ -43,7 +43,7 @@ class Game
 
 	Player player;
 	Music sound;
-	Bullets bullet[NUMOFBULLETS];
+	Bullets bullet;
 
 
 	bool paused = false;
