@@ -23,3 +23,4 @@ void PickUp::draw(sf::RenderWindow & window)
 {
 	window.draw(message);
 }
+

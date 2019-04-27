@@ -46,13 +46,17 @@ class Game
 	Bullets bullet;
 
 
+	sf::Text healthMessage; // text used for message on screen
+	sf::Texture m_logoTexture; // texture used for sfml logo
+	sf::Sprite m_logoSprite; // sprite used for sfml logo
+
 	bool paused = false;
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
 
 	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
-
+	int numOfAsteroids = 2;
 	sf::Sprite backRoundSprite;
 	sf::Texture backRoundTexture;
 public:
@@ -62,22 +66,19 @@ public:
 	~Game();
 	void run();
 	int helpTimer = 20;
-	int asteroidResetTimer = 100;
 	int licenseTimer = 60;
 	void processEvents();
 	void update(sf::Time t_deltaTime);
 	void render();
-
+	sf::Font m_ArialBlackfont; // font used by message
 	void setupFontAndText();
 	void setupSprite();
 	void mouseClicks(sf::Event t_event, sf::RenderWindow &t_window);
 	bool asteroidShot = false;
 	sf::RenderWindow m_window; // main SFML window
-	sf::Font m_ArialBlackfont; // font used by message
-	sf::Text m_welcomeMessage; // text used for message on screen
-	sf::Texture m_logoTexture; // texture used for sfml logo
-	sf::Sprite m_logoSprite; // sprite used for sfml logo
+	
 	bool m_exitGame; // control exiting game
 	void changeState();
 	void timer();
+	void collision();
 };

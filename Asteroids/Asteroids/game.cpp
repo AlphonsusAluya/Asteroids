@@ -91,25 +91,18 @@ void Game::processEvents()
 					currentState = GameState::HelpScreen; // goes to the help screen from the pickup help if requested
 				}
 			}
-
-
 				if (currentState == GameState::GamePlay)
 				{
 					player.rotate(event);
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
 					{
-
 						for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 						{
 							MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
 							smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
 						}
-
 					}
-					
-					
 				}
-			
 		}
 		mouseClicks(event, m_window);
 	}
@@ -121,7 +114,7 @@ void Game::processEvents()
 void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
-	{
+	{	
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 		{
 			int x = player.velocity.x;
@@ -132,7 +125,8 @@ void Game::update(sf::Time t_deltaTime)
 		
 		if (paused == false)
 		{
-			for (int i = 0; i < MAX_ASTEROIDS; i++)
+			collision();
+			for (int i = 0; i < numOfAsteroids; i++)
 			{
 				asteroidsL[i].update();
 				mediumAsteroids[i].update();
@@ -144,7 +138,7 @@ void Game::update(sf::Time t_deltaTime)
 			}
 		}
 	}
-
+	
 	changeState();
 	timer();
 	if (m_exitGame)
@@ -153,6 +147,27 @@ void Game::update(sf::Time t_deltaTime)
 	}
 }
 
+
+void Game::collision()
+{
+	for (int i = 0; i < numOfAsteroids; i++)
+	{
+		if (asteroidsL[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+		{
+			player.decreaseHealth(1); // large asteroid collision
+		}
+
+		if (mediumAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+		{
+			player.decreaseHealth(2); // med asteroid collison
+		}
+
+		if (smallAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+		{
+			player.decreaseHealth(3); // med asteroid collison
+		}
+	}
+}
 /// <summary>
 /// draw the frame and then switch bufers
 /// </summary>
@@ -201,14 +216,15 @@ void Game::render()
 
 	if (currentState == GameState::GamePlay)
 	{
+		healthMessage.setString("Health:" + std::to_string(player.getHealth()));
 		sound.gamePlaySound();
 		m_window.draw(backRoundSprite);
-		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		for (int i = 0; i < numOfAsteroids; i++)
 		{
 			asteroidsL[i].draw(m_window);
 			mediumAsteroids[i].draw(m_window);		//draws the screen and anything necessary for the game play
 		}
-
+		m_window.draw(healthMessage);
 		player.draw(m_window);
 		bullet.draw(m_window);
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
@@ -222,7 +238,7 @@ void Game::render()
 	{
 		
 		m_window.draw(backRoundSprite);
-		for (int i = 0; i < MAX_ASTEROIDS; i++)
+		for (int i = 0; i < numOfAsteroids; i++)
 		{
 			asteroidsL[i].draw(m_window);
 			mediumAsteroids[i].draw(m_window);			//draws the screen and anything necessary for the pause menu
@@ -248,14 +264,16 @@ void Game::setupFontAndText() // sets up fonts and texts
 	{
 		std::cout << "problem loading arial black font" << std::endl;
 	}
-	m_welcomeMessage.setFont(m_ArialBlackfont);
-	m_welcomeMessage.setString("SFML Game");
-	m_welcomeMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	m_welcomeMessage.setPosition(40.0f, 40.0f);
-	m_welcomeMessage.setCharacterSize(80);
-	m_welcomeMessage.setOutlineColor(sf::Color::Red);
-	m_welcomeMessage.setFillColor(sf::Color::Black);
-	m_welcomeMessage.setOutlineThickness(3.0f);
+
+	healthMessage.setFont(m_ArialBlackfont);
+	
+	healthMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
+	healthMessage.setPosition(5.0f, 30.0f);
+	healthMessage.setCharacterSize(25);
+	healthMessage.setOutlineColor(sf::Color::Red);
+	healthMessage.setFillColor(sf::Color::Black);
+	healthMessage.setOutlineThickness(3.0f);
+
 	splash.init(m_ArialBlackfont);
 	license.init(m_ArialBlackfont);
 	menu.init(m_ArialBlackfont);
@@ -399,14 +417,9 @@ void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 }
 void Game::timer()
 {
-	asteroidResetTimer--;
 	licenseTimer--;
 	helpTimer--;
 
-	if (asteroidResetTimer < 1)
-	{
-		asteroidResetTimer = 3;
-	}
 }
 void Game::changeState()
 {

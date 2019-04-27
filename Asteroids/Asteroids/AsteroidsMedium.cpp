@@ -10,7 +10,6 @@ AsteroidsMedium::AsteroidsMedium()
 
 	sprite.setTexture(asteroidTexture);
 	positioning();
-
 	location = originalLocation;
 }
 

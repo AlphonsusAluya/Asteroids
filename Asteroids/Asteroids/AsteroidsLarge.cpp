@@ -29,8 +29,6 @@ void AsteroidsLarge::positioning()
 	
 	randomVelocityX = rand() % 10 - 5;
 
-	
-
 	randomX = rand() % 600 + 1;
 
 	int northOrSouth = rand() % 2 + 1;

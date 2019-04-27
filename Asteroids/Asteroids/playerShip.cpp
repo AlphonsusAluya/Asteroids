@@ -2,6 +2,8 @@
 
 Player::Player()
 {
+	counter = 40;
+	health = 100;
 	if (!texture.loadFromFile("ASSETS/IMAGES/MUPMUP7UP.png"))
 	{
 		std::cout << "error with large asteroid image";
@@ -21,13 +23,39 @@ Player::Player()
 
 void Player::update()
 {
+	counter--;
 	friction();
 	location = location + velocity;
 	sprite.setPosition(location);
 	checkBorders();
 }
 
+int Player::getHealth()
+{
+	return health;
+}
+void Player::decreaseHealth(int t_whichAsteroid)
+{
+	if (counter <= 0)
+	{
 
+		if (t_whichAsteroid == 1) // large asteroid
+		{
+			health = health - 5;
+		}
+
+		if (t_whichAsteroid == 2) // medium asteroid
+		{
+			health = health - 3;
+		}
+
+		if (t_whichAsteroid == 3) // medium asteroid
+		{
+			health = health - 1;
+		}
+		counter = 40;
+	}
+}
 
 void Player::draw(sf::RenderWindow & window)
 {
@@ -105,7 +133,7 @@ void Player::checkBorders()
 
 void Player::friction()
 {
-	velocity.x = velocity.x * 0.996;
-	velocity.y = velocity.y * 0.996;
+	velocity.x = velocity.x * 0.990;
+	velocity.y = velocity.y * 0.990;
 }
 

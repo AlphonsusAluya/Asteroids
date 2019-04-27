@@ -8,13 +8,13 @@
 class Player
 {
 	Music sound;
-	sf::Sprite sprite;
+	int counter;
 	sf::Sprite sprite2;
 	sf::Texture texture;
 	sf::Texture icon;
 	float REAL_SIZE = 0;
 	
-
+	int health;
 	
 
 
@@ -25,6 +25,7 @@ class Player
 	const float MAX_FORWARD_SPEED = 40.0f;
 	
 public:
+	sf::Sprite sprite;
 	MyVector3 location;
 	MyVector3 velocity;
 	sf::Vector2f lookDirection = { 0,-1 };
@@ -39,7 +40,8 @@ public:
 	void update();
 	void moveDown();
 	void checkBorders();
-
+	void decreaseHealth(int t_whichAsteroid);
+	int getHealth();
 	void pos();
 
 	void friction();
