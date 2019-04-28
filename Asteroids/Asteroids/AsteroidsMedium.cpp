@@ -66,8 +66,3 @@ void AsteroidsMedium::draw(sf::RenderWindow & window)
 }
 
 
-void AsteroidsMedium::wasShot()
-{
-
-}
-

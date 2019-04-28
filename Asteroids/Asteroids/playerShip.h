@@ -15,7 +15,7 @@ class Player
 	float REAL_SIZE = 0;
 	
 	int health;
-	
+	int score;
 
 
 	float angle = 3.14159265359 / 16.0;
@@ -42,8 +42,9 @@ public:
 	void checkBorders();
 	void decreaseHealth(int t_whichAsteroid);
 	int getHealth();
+	int getScore();
 	void pos();
-
+	void addScore(int t_plus);
 	void friction();
 
 };

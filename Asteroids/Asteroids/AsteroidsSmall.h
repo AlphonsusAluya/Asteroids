@@ -22,7 +22,7 @@ public:
 	sf::Sprite sprite;
 	sf::Texture asteroidTexture;
 
-
+	bool wasShot = false;
 	void positioning(MyVector3 t_location, MyVector3 t_veloctiy);
 	void move();
 	void checkBorders();

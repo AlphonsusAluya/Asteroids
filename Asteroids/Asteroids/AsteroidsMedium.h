@@ -14,7 +14,7 @@ class AsteroidsMedium
 public:
 	int number;
 	AsteroidsMedium();
-
+	bool wasShot = false;
 	MyVector3 originalLocation;
 	MyVector3 velocity;
 	MyVector3 location;
@@ -25,7 +25,6 @@ public:
 
 	sf::Sprite getMediumAsteroid();
 
-	void wasShot();
 
 
 

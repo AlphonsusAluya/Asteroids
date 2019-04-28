@@ -3,6 +3,7 @@
 Player::Player()
 {
 	counter = 40;
+	score = 0;
 	health = 100;
 	if (!texture.loadFromFile("ASSETS/IMAGES/MUPMUP7UP.png"))
 	{
@@ -21,6 +22,10 @@ Player::Player()
 	sprite2.setTexture(icon);
 }
 
+void Player::addScore(int t_plus)
+{
+	score = score + t_plus;
+}
 void Player::update()
 {
 	counter--;
@@ -33,6 +38,11 @@ void Player::update()
 int Player::getHealth()
 {
 	return health;
+}
+
+int Player::getScore()
+{
+	return score;
 }
 void Player::decreaseHealth(int t_whichAsteroid)
 {

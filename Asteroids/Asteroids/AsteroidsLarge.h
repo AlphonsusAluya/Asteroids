@@ -14,7 +14,7 @@ class AsteroidsLarge
 public:
 	int number;
 	AsteroidsLarge();
-
+	bool wasShot = false;
 	MyVector3 originalLocation;
 	MyVector3 velocity;
 	MyVector3 location;
@@ -24,9 +24,6 @@ public:
 
 	int northOrSouth =1;
 	sf::Sprite getLargeAsteroid();
-
-	void wasShot();
-
 
 	void positioning();
 	void move();

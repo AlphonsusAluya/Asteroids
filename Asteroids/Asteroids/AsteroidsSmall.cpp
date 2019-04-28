@@ -35,9 +35,9 @@ void AsteroidsSmall::move()
 
 void AsteroidsSmall::checkBorders()
 {
-	if (location.x > 600)
+	if (location.x > 800)
 	{
-		location.x = location.x - 600;
+		location.x = location.x - 802;
 
 	}
 

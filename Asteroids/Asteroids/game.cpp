@@ -96,11 +96,7 @@ void Game::processEvents()
 					player.rotate(event);
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
 					{
-						for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
-						{
-							MyVector3 newLocation = { asteroidsL[2].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[2].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
-							smallAsteroids[i].positioning(newLocation, asteroidsL[2].velocity);
-						}
+						bulletHitLargeAsteroid(1);
 					}
 				}
 		}
@@ -111,6 +107,34 @@ void Game::processEvents()
 /// Update the game world
 /// </summary>
 /// <param name="t_deltaTime">time interval per frame</param>
+/// 
+void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
+{
+	player.addScore(5);
+	asteroidsL[t_asteroidArrayPosition].wasShot = true;
+	MyVector3 newLocation = { asteroidsL[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
+	for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+	{
+		smallAsteroids[i].positioning(newLocation, asteroidsL[t_asteroidArrayPosition].velocity);
+	}
+}
+
+void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
+{
+	player.addScore(3);
+	mediumAsteroids[t_asteroidArrayPosition].wasShot = true;
+	MyVector3 newLocation = { mediumAsteroids[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, mediumAsteroids[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
+	for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+	{
+		smallAsteroids[i].positioning(newLocation, mediumAsteroids[t_asteroidArrayPosition].velocity);
+	}
+}
+
+void Game::bulletHitSmallAsteroid(int t_asteroidArrayPosition)
+{
+	player.addScore(1);
+	mediumAsteroids[t_asteroidArrayPosition].wasShot = true;
+}
 void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
@@ -128,13 +152,25 @@ void Game::update(sf::Time t_deltaTime)
 			collision();
 			for (int i = 0; i < numOfAsteroids; i++)
 			{
-				asteroidsL[i].update();
-				mediumAsteroids[i].update();
+				if (asteroidsL[i].wasShot == false)
+				{
+					asteroidsL[i].update();
+				}
+				
+				if (mediumAsteroids[i].wasShot == false)
+				{
+					mediumAsteroids[i].update();
+				}
+				
 			}
 			player.update();
 			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)		//if the game isnt paused the game will continue as normal
 			{
-				smallAsteroids[i].update();
+				if (smallAsteroids[i].wasShot == false)
+				{
+					smallAsteroids[i].update();
+				}
+				
 			}
 		}
 	}
@@ -152,20 +188,30 @@ void Game::collision()
 {
 	for (int i = 0; i < numOfAsteroids; i++)
 	{
-		if (asteroidsL[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+		if (asteroidsL[i].wasShot == false)
 		{
-			player.decreaseHealth(1); // large asteroid collision
+			if (asteroidsL[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+			{
+				player.decreaseHealth(1); // large asteroid collision
+			}
+		}
+		
+		if (mediumAsteroids[i].wasShot == false)
+		{
+			if (mediumAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+			{
+				player.decreaseHealth(2); // med asteroid collison
+			}
 		}
 
-		if (mediumAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+		if (smallAsteroids[i].wasShot == false)
 		{
-			player.decreaseHealth(2); // med asteroid collison
+			if (smallAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
+			{
+				player.decreaseHealth(3); // med asteroid collison
+			}
 		}
-
-		if (smallAsteroids[i].sprite.getGlobalBounds().intersects(player.sprite.getGlobalBounds()))
-		{
-			player.decreaseHealth(3); // med asteroid collison
-		}
+		
 	}
 }
 /// <summary>
@@ -217,19 +263,31 @@ void Game::render()
 	if (currentState == GameState::GamePlay)
 	{
 		healthMessage.setString("Health:" + std::to_string(player.getHealth()));
+		scoreMessage.setString("Score:" + std::to_string(player.getScore()));
 		sound.gamePlaySound();
 		m_window.draw(backRoundSprite);
 		for (int i = 0; i < numOfAsteroids; i++)
 		{
-			asteroidsL[i].draw(m_window);
-			mediumAsteroids[i].draw(m_window);		//draws the screen and anything necessary for the game play
+			if (asteroidsL[i].wasShot == false)
+			{
+				asteroidsL[i].draw(m_window);
+			}
+
+			if (mediumAsteroids[i].wasShot == false)
+			{
+				mediumAsteroids[i].draw(m_window);
+			}
 		}
 		m_window.draw(healthMessage);
+		m_window.draw(scoreMessage);
 		player.draw(m_window);
 		bullet.draw(m_window);
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
-			smallAsteroids[i].draw(m_window);
+			if (smallAsteroids[i].wasShot == false)
+			{
+				smallAsteroids[i].draw(m_window);
+			}
 		}
 
 	}
@@ -240,8 +298,15 @@ void Game::render()
 		m_window.draw(backRoundSprite);
 		for (int i = 0; i < numOfAsteroids; i++)
 		{
-			asteroidsL[i].draw(m_window);
-			mediumAsteroids[i].draw(m_window);			//draws the screen and anything necessary for the pause menu
+			if (asteroidsL[i].wasShot == false)
+			{
+				asteroidsL[i].draw(m_window);
+			}
+
+			if (mediumAsteroids[i].wasShot == false)
+			{
+				mediumAsteroids[i].draw(m_window);
+			}
 		}
 
 		player.draw(m_window);
@@ -273,6 +338,15 @@ void Game::setupFontAndText() // sets up fonts and texts
 	healthMessage.setOutlineColor(sf::Color::Red);
 	healthMessage.setFillColor(sf::Color::Black);
 	healthMessage.setOutlineThickness(3.0f);
+
+	scoreMessage.setFont(m_ArialBlackfont);
+
+	scoreMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
+	scoreMessage.setPosition(5.0f, 70.0f);
+	scoreMessage.setCharacterSize(25);
+	scoreMessage.setOutlineColor(sf::Color::Red);
+	scoreMessage.setFillColor(sf::Color::Black);
+	scoreMessage.setOutlineThickness(3.0f);
 
 	splash.init(m_ArialBlackfont);
 	license.init(m_ArialBlackfont);

@@ -47,6 +47,7 @@ class Game
 
 
 	sf::Text healthMessage; // text used for message on screen
+	sf::Text scoreMessage; // text used for message on screen
 	sf::Texture m_logoTexture; // texture used for sfml logo
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 
@@ -76,7 +77,9 @@ public:
 	void mouseClicks(sf::Event t_event, sf::RenderWindow &t_window);
 	bool asteroidShot = false;
 	sf::RenderWindow m_window; // main SFML window
-	
+	void bulletHitLargeAsteroid(int t_asteroidArrayPosition);
+	void bulletHitMediumAsteroid(int t_asteroidArrayPosition);
+	void bulletHitSmallAsteroid(int t_asteroidArrayPosition);
 	bool m_exitGame; // control exiting game
 	void changeState();
 	void timer();
