@@ -120,7 +120,7 @@ void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
 	player.addScore(5);
 	asteroidsL[t_asteroidArrayPosition].wasShot = true;
 	MyVector3 newLocation = { asteroidsL[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
-	for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
+	for (int i = 0; i < numOfSmallAsteroids; i++)
 	{
 		smallAsteroids[i].positioning(newLocation, asteroidsL[t_asteroidArrayPosition].velocity);
 	}
@@ -321,9 +321,7 @@ void Game::render()
 				mediumAsteroids[i].draw(m_window);
 			}
 		}
-		m_window.draw(healthMessage);
-		m_window.draw(scoreMessage);
-		player.draw(m_window);
+		
 		
 		
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
@@ -333,7 +331,9 @@ void Game::render()
 				smallAsteroids[i].draw(m_window);
 			}
 		}
-
+		m_window.draw(healthMessage);
+		m_window.draw(scoreMessage);
+		player.draw(m_window);
 	}
 
 	if (currentState == GameState::PauseMenu)

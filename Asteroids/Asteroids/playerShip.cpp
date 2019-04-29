@@ -103,17 +103,15 @@ void Player::rotate(sf::Event t_event)
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
-		force = force + lookDirection;
-		//if (speed < MAX_FORWARD_SPEED)
-		//{
-		//	speed += acceleration;
-		//}
+		
+		if (velocity.length() < MAX_FORWARD_SPEED) // limits when booster can be used
+		{
+			force = force + lookDirection; 
+		}
 
 		sound.thePlayerSound();
 	}
 
-	//velocity.y *= speed;
-	//velocity.x *= speed;
 	velocity = velocity + force;
 }
 

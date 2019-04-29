@@ -22,7 +22,7 @@ class Player
 
 	float speed = 0.0f;
 	float acceleration = 0.17f;
-	const float MAX_FORWARD_SPEED = 40.0f;
+	const float MAX_FORWARD_SPEED = 9.888f;
 	
 public:
 	float REAL_SIZE = 0;
