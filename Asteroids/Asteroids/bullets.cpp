@@ -4,8 +4,7 @@ Bullets::Bullets()
 {
 	loadContent();
 	getBody();
-	bullets.setOrigin(16, 16);
-	bullets.setPosition(100, 100);
+	bullets.setPosition(-1000, -1000);
 	bulletVelocity = { 0,0 };
 	waitCounter = 10;
 	readyToFire = true;
@@ -19,13 +18,13 @@ sf::Sprite Bullets::getBody()
 
 void Bullets::loadContent()
 {
-	if (!texture.loadFromFile("ASSETS/IMAGES/bullet16.png"))
+	if (!texture.loadFromFile("ASSETS/IMAGES/bullet32.png"))
 	{
 		std::cout << "error bullets";
 	}
 	
 		bullets.setTexture(texture); // sets texture
-	
+		
 	
 }
 
@@ -42,17 +41,17 @@ sf::Vector2f Bullets::bulletVelocitys()
 
 bool Bullets::getTimeToFire()
 {
-	return readyToFire;
+	return readyToFire;		// gets the bullets ready
 }
 
 void Bullets::setBulletVelocity(float t_x, float t_y)
 {
-	bulletVelocity = { t_x,t_y };
+	bulletVelocity = { t_x,t_y }; // sets the velocity
 }
 
 void Bullets::setTimeToFire(bool m_bool)
 {
-	readyToFire = m_bool;
+	readyToFire = m_bool; // sets the bool for the time to fire
 }
 
 
@@ -74,30 +73,30 @@ void Bullets::setPos(sf::Vector2f t_pos)
 
 void Bullets::fire()
 {
-		if (bullets.getPosition().x != -2000) // checks the bullet
+		if (bullets.getPosition().x == -1000) // checks the bullet
 		{
 				bullets.move(bulletVelocity);
 				if (bullets.getPosition().x > Onscreen.x)
 				{
-					bullets.setPosition(-2000, -2000);
+					bullets.setPosition(-1000, -1000);
 					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
 				if (bullets.getPosition().x < 0)
 				{
-					bullets.setPosition(-2000, -2000);
+					bullets.setPosition(-1000, -1000);
 					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
 				if (bullets.getPosition().y > Onscreen.y)
 				{
-					bullets.setPosition(-2000, -2000);
+					bullets.setPosition(-1000, -1000);
 					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
 				if (bullets.getPosition().y < 0)
 				{
-					bullets.setPosition(-2000, -2000);
+					bullets.setPosition(-1000, -1000);
 					bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
@@ -110,5 +109,5 @@ void Bullets::fire()
 
 void Bullets::draw(sf::RenderWindow & window)
 {
-	window.draw(bullets); // draws the bullets 
+	window.draw(getBody()); // draws the bullets 
 }

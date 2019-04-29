@@ -29,6 +29,7 @@ public:
 	MyVector3 location;
 	MyVector3 velocity;
 	sf::Vector2f lookDirection = { 0,-1 };
+	sf::Vector2f getDirection();
 	Player();
 	void draw(sf::RenderWindow & window);
 	sf::Sprite getBody();

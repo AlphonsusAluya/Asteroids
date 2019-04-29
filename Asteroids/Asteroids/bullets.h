@@ -27,14 +27,14 @@ public:
 	int waitCounter = 10;
 	sf::Vector2f bulletVelocitys();
 	sf::Vector2f Onscreen = { -800, -600 };
-	bool readyToFire = true;
+	bool readyToFire = true; // getting ready to fire
 	bool getTimeToFire();
-	void setBulletVelocity(float t_x, float t_y);
-	void setTimeToFire(bool m_bool);
-	void setWaitCounter(int t_waitCounter);
-	void slowerWaitCounter(int t_slow);
-	void setPos(sf::Vector2f t_pos);
-	void fire();
+	void setBulletVelocity(float t_x, float t_y); // set up velocity
+	void setTimeToFire(bool m_bool); // sets the actual time
+	void setWaitCounter(int t_waitCounter); // wait counter
+	void slowerWaitCounter(int t_slow); // iwas gonna use it for power ups like speeding up the shots
+	void setPos(sf::Vector2f t_pos); // sets position
+	void fire(); // checks the bullets
 	void draw(sf::RenderWindow &window);
 
 

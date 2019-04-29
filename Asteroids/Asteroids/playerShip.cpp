@@ -1,5 +1,10 @@
 #include "playerShip.h"
 
+sf::Vector2f Player::getDirection()
+{
+	return lookDirection;
+}
+
 Player::Player()
 {
 	counter = 40;

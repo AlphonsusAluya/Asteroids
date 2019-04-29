@@ -102,7 +102,7 @@ void Game::processEvents()
 					{
 						if (event.key.code == sf::Keyboard::Space)
 						{
-							setUpBullets();
+							setUpBullets(); // fires the bullets
 						}
 					}
 				}
@@ -150,6 +150,11 @@ void Game::update(sf::Time t_deltaTime)
 	
 		if (paused == false)
 		{
+			for (int i = 0; i < NUMOFBULLETS; i++)
+			{
+				bullet[i].fire();
+				bullet[i].setPos(player.location);  // checks the bullets and position
+			}
 			collision();
 			for (int i = 0; i < numOfAsteroids; i++)
 			{
@@ -162,10 +167,7 @@ void Game::update(sf::Time t_deltaTime)
 				{
 					mediumAsteroids[i].update();
 				}
-				for (int i = 0; i < NUMOFBULLETS; i++)
-				{
-					bullet[i].fire();
-				}
+			
 
 				
 			}
@@ -272,11 +274,8 @@ void Game::render()
 		scoreMessage.setString("Score:" + std::to_string(player.getScore()));
 		sound.gamePlaySound();
 		
-		for (int i = 0; i < NUMOFBULLETS; i++)
-		{
-			//bullet[i].draw(m_window);
-			m_window.draw(bullet[i].getBody());
-		}m_window.draw(backRoundSprite);
+		
+		m_window.draw(backRoundSprite);
 		for (int i = 0; i < numOfAsteroids; i++)
 		{
 			if (asteroidsL[i].wasShot == false)
@@ -292,7 +291,11 @@ void Game::render()
 		m_window.draw(healthMessage);
 		m_window.draw(scoreMessage);
 		player.draw(m_window);
-		
+
+		for (int i = 0; i < NUMOFBULLETS; i++)
+		{
+			bullet[i].draw(m_window);		//supposed to draw bullets
+		}
 		
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
@@ -392,26 +395,27 @@ void Game::setUpBullets()
 {
 	for (int i = 0; i < NUMOFBULLETS; i++)
 	{
-		if (bullet[i + 1].readyToFire == true && bullet[i].readyToFire == true)
+		if (bullet[i + 1].readyToFire == true && bullet[i].readyToFire == true) // checks if its ready to fire
 		{
-			if (bullet[i].bullets.getPosition() == bullet[i].Onscreen && bullet[i + 1].bullets.getPosition() == bullet[i + 1].Onscreen)
+			if (bullet[i].bullets.getPosition() == bullet[i].Onscreen && bullet[i + 1].bullets.getPosition() == bullet[i + 1].Onscreen) // checks if its on screen
 			{
 				bullet[i].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(25, 25));
-				bullet[i +1].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(-25, -25));
+				bullet[i +1].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(-25, -25)); // sets two bullet positions
 
-				bullet[i].bulletVelocity = player.lookDirection;
-				bullet[i].bulletVelocity.x = bullet[i].bulletVelocity.x * 8;
-				bullet[i].bulletVelocity.y = bullet[i].bulletVelocity.y * 8;
-				bullet[i].readyToFire = false;
-				bullet[i].waitCounter = 10;
+				bullet[i].bulletVelocity = player.getDirection(); // sets the velocity to the player look direction
+				bullet[i].bulletVelocity.x = bullet[i].bulletVelocity.x * 2; // multiplies it so it moves
+				bullet[i].bulletVelocity.y = bullet[i].bulletVelocity.y * 2;
+				bullet[i].readyToFire = false; // changes the bool
+				bullet[i].waitCounter = 10; // set the wait counter
 
-				bullet[i + 1].bulletVelocity = player.lookDirection;
-				bullet[i + 1].bulletVelocity.x = bullet[i].bulletVelocity.x * 8;
-				bullet[i + 1].bulletVelocity.y = bullet[i].bulletVelocity.y * 8;
-				bullet[i + 1].readyToFire = false;
-				bullet[i + 1].waitCounter = 10;
+				bullet[i + 1].bulletVelocity = player.getDirection(); // sets the velocity to the player look direction
+				bullet[i + 1].bulletVelocity.x = bullet[i].bulletVelocity.x * 2; // multiplies it so it moves
+				bullet[i + 1].bulletVelocity.y = bullet[i].bulletVelocity.y * 2;
+				bullet[i + 1].readyToFire = false; // changes the bool
+				bullet[i + 1].waitCounter = 10; // set the wait counter
 
-				i = i + 2;
+				
+				//bullet[i].setPos(sf::Vector2f(100,100)); //
 
 				sound.laserSound();
 				break;
@@ -425,7 +429,7 @@ void Game::setUpBullets()
 
 			if (bullet[i].waitCounter <= 0)
 			{
-				bullet[i].readyToFire = true;
+				bullet[i].readyToFire = true;				//sets the wait counter for both bullets
 			}
 
 			if (bullet[i + 1].waitCounter <= 0)
@@ -436,24 +440,6 @@ void Game::setUpBullets()
 	}
 }
 
-//void Game::ifNotReady()
-//{
-//	for (int i = 0; i < NUMOFBULLETS; i++)
-//	{
-//		bullet[i].waitToFire--;
-//		bullet[i + 1].waitToFire--;
-//
-//		if (bullet[i].waitToFire <= 0)
-//		{
-//			bullet[i].readyToFire = true;
-//		}
-//
-//		if (bullet[i + 1].waitToFire <= 0)
-//		{
-//			bullet[i + 1].readyToFire = true;
-//		}
-//	}
-//}
 
 
 
