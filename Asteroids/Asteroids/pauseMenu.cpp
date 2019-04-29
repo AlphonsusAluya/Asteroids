@@ -13,7 +13,7 @@ void PauseMenu::init(sf::Font & font)
 
 	sprite.setTexture(texture);
 	message.setFont(font);
-	message.setString("Resume \nHelp \nUpgrade");
+	message.setString("Resume \nMain Menu \nUpgrade");
 
 	message.setPosition(200.0f, 120.0f);
 	message.setCharacterSize(70);

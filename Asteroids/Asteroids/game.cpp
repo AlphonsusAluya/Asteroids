@@ -387,19 +387,17 @@ void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 
 			if (position.y <= 220) // first button / start game
 			{
-				std::cout << "gameplay";
 				currentState = GameState::GamePlay;
+				paused = false;
 			}
 
 			if (position.y >= 220 && position.y <= 320) // help menu
 			{
-				std::cout << "help";
 				currentState = GameState::HelpScreen;
 			}
 
 			if (position.y >= 321) // help menu
 			{
-				std::cout << "upgrade";
 				currentState = GameState::UpgradeScreen;
 			}
 		}
@@ -418,20 +416,17 @@ void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 				std::cout << output;
 				if (position.y <= 220) // first button / start game
 				{
-					std::cout << "gameplay mup";
 					paused = false;
 					currentState = GameState::GamePlay;
 				}
 
 				if (position.y >= 220 && position.y <= 320) // help menu
 				{
-					std::cout << "help";
-					currentState = GameState::HelpScreen;
+					currentState = GameState::MainMenuScreen;
 				}
 
 				if (position.y >= 321) // help menu
 				{
-					std::cout << "upgrade";
 					currentState = GameState::UpgradeScreen;
 				}
 			}		
