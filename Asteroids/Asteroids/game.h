@@ -43,7 +43,7 @@ class Game
 
 	Player player;
 	Music sound;
-	Bullets bullet;
+	Bullets bullet[NUMOFBULLETS];
 
 
 	sf::Text healthMessage; // text used for message on screen
@@ -61,7 +61,7 @@ class Game
 	sf::Sprite backRoundSprite;
 	sf::Texture backRoundTexture;
 public:
-
+	
 	GameState currentState;
 	Game();
 	~Game();
@@ -74,6 +74,7 @@ public:
 	sf::Font m_ArialBlackfont; // font used by message
 	void setupFontAndText();
 	void setupSprite();
+	void setUpBullets();
 	void mouseClicks(sf::Event t_event, sf::RenderWindow &t_window);
 	bool asteroidShot = false;
 	sf::RenderWindow m_window; // main SFML window

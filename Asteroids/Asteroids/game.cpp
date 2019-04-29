@@ -98,6 +98,13 @@ void Game::processEvents()
 					{
 						bulletHitLargeAsteroid(1);
 					}
+					if (paused == false)
+					{
+						if (event.key.code == sf::Keyboard::Space)
+						{
+							setUpBullets();
+						}
+					}
 				}
 		}
 		mouseClicks(event, m_window);
@@ -139,14 +146,8 @@ void Game::update(sf::Time t_deltaTime)
 {
 	if (currentState == GameState::GamePlay)
 	{	
-		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
-		{
-			int x = player.velocity.x;
-			int y = player.velocity.y;
-			bullet.setBulletVelocity(x, y);			// the bullets firing
-			bullet.fire();
-		}
-		
+	
+	
 		if (paused == false)
 		{
 			collision();
@@ -161,6 +162,11 @@ void Game::update(sf::Time t_deltaTime)
 				{
 					mediumAsteroids[i].update();
 				}
+				for (int i = 0; i < NUMOFBULLETS; i++)
+				{
+					bullet[i].fire();
+				}
+
 				
 			}
 			player.update();
@@ -265,7 +271,12 @@ void Game::render()
 		healthMessage.setString("Health:" + std::to_string(player.getHealth()));
 		scoreMessage.setString("Score:" + std::to_string(player.getScore()));
 		sound.gamePlaySound();
-		m_window.draw(backRoundSprite);
+		
+		for (int i = 0; i < NUMOFBULLETS; i++)
+		{
+			//bullet[i].draw(m_window);
+			m_window.draw(bullet[i].getBody());
+		}m_window.draw(backRoundSprite);
 		for (int i = 0; i < numOfAsteroids; i++)
 		{
 			if (asteroidsL[i].wasShot == false)
@@ -281,7 +292,8 @@ void Game::render()
 		m_window.draw(healthMessage);
 		m_window.draw(scoreMessage);
 		player.draw(m_window);
-		bullet.draw(m_window);
+		
+		
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
 			if (smallAsteroids[i].wasShot == false)
@@ -375,6 +387,75 @@ void Game::setupSprite()
 
 	backRoundSprite.setTexture(backRoundTexture); // sets sprite
 }
+
+void Game::setUpBullets()
+{
+	for (int i = 0; i < NUMOFBULLETS; i++)
+	{
+		if (bullet[i + 1].readyToFire == true && bullet[i].readyToFire == true)
+		{
+			if (bullet[i].bullets.getPosition() == bullet[i].Onscreen && bullet[i + 1].bullets.getPosition() == bullet[i + 1].Onscreen)
+			{
+				bullet[i].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(25, 25));
+				bullet[i +1].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(-25, -25));
+
+				bullet[i].bulletVelocity = player.lookDirection;
+				bullet[i].bulletVelocity.x = bullet[i].bulletVelocity.x * 8;
+				bullet[i].bulletVelocity.y = bullet[i].bulletVelocity.y * 8;
+				bullet[i].readyToFire = false;
+				bullet[i].waitCounter = 10;
+
+				bullet[i + 1].bulletVelocity = player.lookDirection;
+				bullet[i + 1].bulletVelocity.x = bullet[i].bulletVelocity.x * 8;
+				bullet[i + 1].bulletVelocity.y = bullet[i].bulletVelocity.y * 8;
+				bullet[i + 1].readyToFire = false;
+				bullet[i + 1].waitCounter = 10;
+
+				i = i + 2;
+
+				sound.laserSound();
+				break;
+			}
+			
+		}
+		else
+		{
+			bullet[i].waitCounter--;
+			bullet[i + 1].waitCounter--;
+
+			if (bullet[i].waitCounter <= 0)
+			{
+				bullet[i].readyToFire = true;
+			}
+
+			if (bullet[i + 1].waitCounter <= 0)
+			{
+				bullet[i + 1].readyToFire = true;
+			}
+		}
+	}
+}
+
+//void Game::ifNotReady()
+//{
+//	for (int i = 0; i < NUMOFBULLETS; i++)
+//	{
+//		bullet[i].waitToFire--;
+//		bullet[i + 1].waitToFire--;
+//
+//		if (bullet[i].waitToFire <= 0)
+//		{
+//			bullet[i].readyToFire = true;
+//		}
+//
+//		if (bullet[i + 1].waitToFire <= 0)
+//		{
+//			bullet[i + 1].readyToFire = true;
+//		}
+//	}
+//}
+
+
 
 void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 {
