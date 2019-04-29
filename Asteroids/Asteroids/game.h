@@ -58,6 +58,7 @@ class Game
 
 	AsteroidsSmall smallAsteroids[MAX_SMALL_ASTEROIDS];
 	int numOfAsteroids = 2;
+	int numOfSmallAsteroids = 3;
 	sf::Sprite backRoundSprite;
 	sf::Texture backRoundTexture;
 public:
