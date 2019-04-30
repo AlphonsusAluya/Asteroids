@@ -147,7 +147,7 @@ void Player::friction()
 
 void Player::changeColourToRed()
 {
-	sprite.setColor(sf::Color(255,255,255,100));
+	sprite.setColor(sf::Color(255,255,255,100)); // changes to transparent colour when ship is being hit with asteroid
 }
 
 void Player::changeColourToNormal()

@@ -164,7 +164,10 @@ void Game::update(sf::Time t_deltaTime)
 				{
 					bullet[i].fire();
 				}
-
+				for (int i = 0; i < MAX_PICK_UPS; i++)
+				{
+					pickUps[i].update();
+				}
 				
 			}
 			player.update();
@@ -232,11 +235,11 @@ void Game::collision()
 			if (length <= largeSize)
 			{
 				player.decreaseHealth(1); // large asteroid collision
-				player.changeColourToRed();
+				player.changeColourToRed(); // change colour to transparent when being hit with asteroid
 			}
 			else
 			{
-				player.changeColourToNormal();
+				player.changeColourToNormal(); // its normal colour
 			}
 		}
 
@@ -245,7 +248,7 @@ void Game::collision()
 			if (lengthMedium <= mediumSize)
 			{
 				player.decreaseHealth(2); // med asteroid collison
-				
+				player.changeColourToRed();
 			}
 		}
 	}
@@ -260,6 +263,7 @@ void Game::collision()
 
 			if (lengthSmall <= smallize)
 			{
+				player.changeColourToRed();
 				player.decreaseHealth(3); // med asteroid collison
 				
 			}
@@ -356,6 +360,15 @@ void Game::render()
 		m_window.draw(healthMessage);
 		m_window.draw(scoreMessage);
 		player.draw(m_window);
+
+		for (int i = 0; i < MAX_PICK_UPS; i++)
+		{
+			if (pickUps[i].pickedUp == false)
+			{
+				pickUps[i].draw(m_window);
+			}
+		}
+		
 	}
 
 	if (currentState == GameState::PauseMenu)

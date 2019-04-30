@@ -11,7 +11,7 @@ AsteroidsSmall::AsteroidsSmall()
 
 	sprite.setTexture(asteroidTexture);
 
-	originalLocation = { 10000,10000,0 };
+	originalLocation = { -1000,-1000,0 };
 
 	location = originalLocation;
 	sprite.setPosition(location);
