@@ -70,11 +70,13 @@ void AsteroidsMedium::checkBorders()
 	if (location.x > 805 || location.x < -5)
 	{
 		location = originalLocation;
+		wasShot = false;
 	}
 
 	if (location.y > 805)
 	{
 		location = originalLocation;
+		wasShot = false;
 	}
 }
 

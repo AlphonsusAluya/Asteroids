@@ -13,7 +13,7 @@ class Bullets
 	
 	
 	sf::Texture texture;
-	MyVector3 location;
+	
 
 public:
 	Bullets();
@@ -26,6 +26,7 @@ public:
 	sf::Vector2f bulletVelocitys();
 	sf::Vector2f Onscreen = { -1000, -1000 };
 	sf::Vector2f offScreen = { -100, -100 };
+	MyVector3 location;
 	bool readyToFire; // getting ready to fire
 	bool getTimeToFire();
 	void setBulletVelocity(float t_x, float t_y); // set up velocity

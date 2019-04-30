@@ -94,7 +94,7 @@ void Game::processEvents()
 				if (currentState == GameState::GamePlay)
 				{
 					player.rotate(event);
-					if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::T)) // going to be collision between bullet and asteroid // testing
 					{
 						bulletHitLargeAsteroid(1);
 					}
@@ -118,7 +118,7 @@ void Game::processEvents()
 /// <param name="t_deltaTime">time interval per frame</param>
 /// 
 void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
-{
+{	
 	player.addScore(5);
 	asteroidsL[t_asteroidArrayPosition].wasShot = true;
 	MyVector3 newLocation = { asteroidsL[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
@@ -126,6 +126,7 @@ void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
 	{
 		smallAsteroids[i].positioning(newLocation, asteroidsL[t_asteroidArrayPosition].velocity);
 	}
+	asteroidsL[t_asteroidArrayPosition].positioning();
 }
 
 void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
@@ -137,6 +138,7 @@ void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
 	{
 		smallAsteroids[i].positioning(newLocation, mediumAsteroids[t_asteroidArrayPosition].velocity);
 	}
+	mediumAsteroids[t_asteroidArrayPosition].positioning();
 }
 
 void Game::bulletHitSmallAsteroid(int t_asteroidArrayPosition)
@@ -166,20 +168,15 @@ void Game::update(sf::Time t_deltaTime)
 			collision();
 			for (int i = 0; i < numOfAsteroids; i++)
 			{
-				if (asteroidsL[i].wasShot == false)
-				{
-					asteroidsL[i].update();
-				}
-				
-				if (mediumAsteroids[i].wasShot == false)
-				{
-					mediumAsteroids[i].update();
-				}
 
-				for (int i = 0; i < NUMOFBULLETS; i++)
+				asteroidsL[i].update();
+				mediumAsteroids[i].update();
+				
+
+		/*		for (int i = 0; i < NUMOFBULLETS; i++)
 				{
 					bullet[i].fire();
-				}
+				}*/
 				
 			} // end for
 
@@ -328,6 +325,7 @@ void Game::collision()
 	float mediumSize = (MEDIUM_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 	float smallSize = (SMALL_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 
+	float smallBulletSize = (LARGE_IMAGE_LENTH / 2 + 8);
 
 	for (int i = 0; i < numOfAsteroids; i++)
 	{
@@ -409,6 +407,33 @@ void Game::collision()
 
 			}
 		}
+
+		for (int i = 0; i < numOfAsteroids; i++)
+		{
+			for (int j = 0; j <= NUMOFBULLETS; j++)
+			{
+				MyVector3 LargeLocation = { asteroidsL[i].location.x + 48, asteroidsL[i].location.y + 48, 0 }; // finds centre of large asteroid image
+				MyVector3 smallLocation = { bullet[j].getBody().getPosition().x + 8, bullet[j].getBody().getPosition().y + 8, 0 };
+				MyVector3 mediumLocation = { mediumAsteroids[i].location.x + 32, mediumAsteroids[i].location.y + 32, 0 };  // finds centre of medium asteroid image
+				distanceSmall = LargeLocation - smallLocation; // distance between large asteroid and bullet
+				lengthSmall = distanceSmall.length();
+
+				distanceMedium = mediumLocation - smallLocation;
+				lengthMedium = distanceMedium.length();
+
+				if (lengthSmall <= smallBulletSize) // colision with large asteroid
+				{
+					bulletHitLargeAsteroid(i);
+				}
+
+				if (lengthMedium <= smallBulletSize) // colision with large asteroid
+				{
+					bulletHitMediumAsteroid(i);
+				}
+
+			}
+		}
+		
 	}
 
 ///////////////////////////////// <summary>

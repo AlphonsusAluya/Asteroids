@@ -38,7 +38,11 @@ void Player::increaseHealth(int t_addHealth)
 }
 void Player::addScore(int t_plus)
 {
-	score = score + t_plus;
+	if (counter <= 0)
+	{
+		score = score + t_plus;
+		counter = 40;
+	}
 }
 void Player::update()
 {
