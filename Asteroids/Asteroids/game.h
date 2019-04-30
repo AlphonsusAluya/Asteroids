@@ -22,6 +22,8 @@
 #include "Music.h"
 #include "pauseMenu.h"
 #include "bullets.h"
+#include "pickUps.h"
+
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -44,7 +46,7 @@ class Game
 	Player player;
 	Music sound;
 	Bullets bullet[NUMOFBULLETS];
-
+	PickUps pickUps[MAX_PICK_UPS];
 
 	sf::Text healthMessage; // text used for message on screen
 	sf::Text scoreMessage; // text used for message on screen

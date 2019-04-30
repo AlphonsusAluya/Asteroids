@@ -25,7 +25,7 @@ class Player
 	const float MAX_FORWARD_SPEED = 9.888f;
 	
 public:
-	float REAL_SIZE = 0;
+	float REAL_SIZE;
 	sf::Sprite sprite;
 	MyVector3 location;
 	MyVector3 velocity;
@@ -45,5 +45,6 @@ public:
 	void pos();
 	void addScore(int t_plus);
 	void friction();
-
+	void changeColourToRed();
+	void changeColourToNormal();
 };
