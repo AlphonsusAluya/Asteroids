@@ -37,10 +37,9 @@ void PickUps::whichPickUP()
 
 void PickUps::positioning()
 {
-	double posX = (rand() % 1000 + 1);
-	double posY = (rand() % 1000 + 1);
+	double posX = (rand() % 950 + 1); // some off screen and arent drawn or updated
+	double posY = (rand() % 750 + 1);
 
-	//sprite.setPosition(posX, posY);
 	location = { posX,posY,0 };
 	sprite.setPosition(location);
 }
@@ -54,12 +53,14 @@ void PickUps::reset()
 {
 	whichPickUP();
 	pickedUp = false;
+	positioning();
 }
 
 
 void PickUps::update()
 {
 	sprite.setPosition(location);
+	
 }
 
 void PickUps::draw(sf::RenderWindow & window)

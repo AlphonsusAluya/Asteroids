@@ -54,6 +54,11 @@ class Game
 	sf::Sprite m_logoSprite; // sprite used for sfml logo
 
 	bool paused = false;
+	bool anotherRound = false;
+	bool gameOver = false;
+
+	bool asteroidSlow = false;
+	bool asteroidNormal = true;
 
 	AsteroidsLarge asteroidsL[MAX_ASTEROIDS];
 	AsteroidsMedium mediumAsteroids[MAX_ASTEROIDS];
@@ -63,6 +68,9 @@ class Game
 	int numOfSmallAsteroids = 3;
 	sf::Sprite backRoundSprite;
 	sf::Texture backRoundTexture;
+
+
+	int slowAsteroidPowerCounter = 1;
 public:
 	
 	GameState currentState;
@@ -87,5 +95,8 @@ public:
 	bool m_exitGame; // control exiting game
 	void changeState();
 	void timer();
+	void scoreTracker();
 	void collision();
+	void slowAsteroids();
+	void normalAsteroids();
 };

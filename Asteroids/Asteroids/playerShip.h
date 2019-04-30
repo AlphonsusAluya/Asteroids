@@ -45,6 +45,8 @@ public:
 	void pos();
 	void addScore(int t_plus);
 	void friction();
+	void changeColourToTransparent();
 	void changeColourToRed();
 	void changeColourToNormal();
+	void increaseHealth(int t_addHealth);
 };

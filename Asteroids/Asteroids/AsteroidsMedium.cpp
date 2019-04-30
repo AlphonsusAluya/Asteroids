@@ -21,18 +21,42 @@ sf::Sprite AsteroidsMedium::getMediumAsteroid()
 
 void AsteroidsMedium::positioning()
 {
+	//double randomX = 0;
+	//double randomVelocityX = 0;
+	//double randomVelocityY = 0;
+
+	//randomVelocityX = rand() % 9 - 5;
+
+	//randomVelocityY = rand() % 5 + 1;
+
+	//randomX = rand() % 600 + 1;
+	//originalLocation = { randomX,-400,0 };
+
+	//velocity = { randomVelocityX,randomVelocityY,0 };
+
 	double randomX = 0;
 	double randomVelocityX = 0;
 	double randomVelocityY = 0;
 
-	randomVelocityX = rand() % 9 - 5;
-
-	randomVelocityY = rand() % 5 + 1;
+	randomVelocityX = rand() % 10 - 5;
 
 	randomX = rand() % 600 + 1;
-	originalLocation = { randomX,-400,0 };
 
-	velocity = { randomVelocityX,randomVelocityY,0 };
+	int northOrSouth = rand() % 2 + 1;
+
+	if (northOrSouth == 1)
+	{
+		originalLocation = { randomX,1,0 };
+		randomVelocityY = rand() % 6 + 1;
+		velocity = { randomVelocityX,randomVelocityY,0 };
+	}
+
+	if (northOrSouth == 2)
+	{
+		originalLocation = { randomX,800,0 };
+		randomVelocityY = rand() % 1 - 6;
+		velocity = { randomVelocityX,randomVelocityY,0 };
+	}
 }
 
 void AsteroidsMedium::move()

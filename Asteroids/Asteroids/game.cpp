@@ -128,7 +128,7 @@ void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
 
 void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
 {
-	player.addScore(3);
+	player.addScore(5);
 	mediumAsteroids[t_asteroidArrayPosition].wasShot = true;
 	MyVector3 newLocation = { mediumAsteroids[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, mediumAsteroids[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
 	for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
@@ -139,7 +139,7 @@ void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
 
 void Game::bulletHitSmallAsteroid(int t_asteroidArrayPosition)
 {
-	player.addScore(1);
+	player.addScore(5);
 	mediumAsteroids[t_asteroidArrayPosition].wasShot = true;
 }
 void Game::update(sf::Time t_deltaTime)
@@ -152,7 +152,7 @@ void Game::update(sf::Time t_deltaTime)
 			{
 				bullet[i].fire();
 				bullet[i].setPos(player.location);  // checks the bullets and position
-			}
+			} // end for
 			collision();
 			for (int i = 0; i < numOfAsteroids; i++)
 			{
@@ -166,22 +166,38 @@ void Game::update(sf::Time t_deltaTime)
 					mediumAsteroids[i].update();
 				}
 
-			
-
-
 				for (int i = 0; i < NUMOFBULLETS; i++)
 				{
 					bullet[i].fire();
 				}
+				
+			} // end for
 
-				for (int i = 0; i < MAX_PICK_UPS; i++)
+			for (int i = 0; i < MAX_PICK_UPS; i++)
+			{
+				pickUps[i].update();
+			}
+			
+			if(anotherRound == true)
+			{
+				if (numOfAsteroids < MAX_ASTEROIDS)
 				{
-					pickUps[i].update();
-				}
+					numOfAsteroids++;
 
+					for (int i = 0; i < MAX_PICK_UPS; i++)		// if the game isnt paused the game will continue as normal
+					{
+						pickUps[i].reset();
+					}
+					anotherRound = false;
+					player.addScore(5);
+				}
+				else
+					gameOver = true;	
 				
 			}
 			player.update();
+			scoreTracker();
+			normalAsteroids();
 			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)		//if the game isnt paused the game will continue as normal
 			{
 				if (smallAsteroids[i].wasShot == false)
@@ -201,6 +217,81 @@ void Game::update(sf::Time t_deltaTime)
 	}
 }
 
+void Game::slowAsteroids()
+{
+	if (asteroidSlow == false)
+	{
+		for (int i = 0; i < numOfAsteroids; i++)
+		{
+			asteroidsL[i].velocity = asteroidsL[i].velocity * 0.5;
+			mediumAsteroids[i].velocity = mediumAsteroids[i].velocity * 0.5;
+		}
+
+		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)		//if the game isnt paused the game will continue as normal
+		{
+			smallAsteroids[i].velocity = smallAsteroids[i].velocity * 0.5;
+		}
+		asteroidSlow = true;
+	}
+		
+}
+
+void Game::normalAsteroids() // sets back to normal pace after power up
+{
+	if (slowAsteroidPowerCounter < 0)
+	{
+		if (asteroidSlow == true)
+		{
+			for (int i = 0; i < numOfAsteroids; i++)
+			{
+				asteroidsL[i].velocity = asteroidsL[i].velocity * 2;
+				mediumAsteroids[i].velocity = mediumAsteroids[i].velocity * 2;
+			}
+
+			for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)		//if the game isnt paused the game will continue as normal
+			{
+				smallAsteroids[i].velocity = smallAsteroids[i].velocity * 2;
+			}
+			asteroidSlow = false;
+		}
+	}
+
+
+}
+
+void Game::scoreTracker()
+{
+	if (player.getScore() == 50)
+	{
+		anotherRound = true;
+	}
+
+	if (player.getScore() == 100)
+	{
+		anotherRound = true;
+	}
+
+	if (player.getScore() == 150)
+	{
+		anotherRound = true;
+	}
+
+	if (player.getScore() == 200)
+	{
+		anotherRound = true;
+	}
+
+	if (player.getScore() == 250)
+	{
+		anotherRound = true;
+	}
+
+	if (player.getScore() == 300) // max asteroids
+	{
+		anotherRound = true;
+	}
+
+}
 
 void Game::collision()
 {
@@ -225,7 +316,8 @@ void Game::collision()
 
 	float largeSize = (LARGE_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 	float mediumSize = (MEDIUM_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
-	float smallize = (SMALL_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
+	float smallSize = (SMALL_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
+
 
 	for (int i = 0; i < numOfAsteroids; i++)
 	{
@@ -252,6 +344,7 @@ void Game::collision()
 			{
 				player.changeColourToNormal(); // its normal colour
 			}
+			
 		}
 
 		if (mediumAsteroids[i].wasShot == false)
@@ -272,11 +365,38 @@ void Game::collision()
 			distanceSmall = smallLocation - player.location;
 			lengthSmall = distanceSmall.length();
 
-			if (lengthSmall <= smallize)
+			if (lengthSmall <= smallSize)
 			{
 				player.changeColourToRed();
-				player.decreaseHealth(3); // med asteroid collison
-				
+				player.decreaseHealth(3); // med asteroid collison	
+			}
+		}
+	}
+
+	for (int i = 0; i <= MAX_PICK_UPS; i++)
+	{
+		if (pickUps[i].pickedUp == false)
+		{
+			MyVector3 smallLocation = { pickUps[i].location.x + 16, pickUps[i].location.y + 16, 0 };
+			distanceSmall = smallLocation - player.location;
+			lengthSmall = distanceSmall.length();
+
+			if (lengthSmall <= smallSize)
+			{
+				if (pickUps[i].getWhichPowerUp() == 1)
+				{
+					slowAsteroids();
+					slowAsteroidPowerCounter = 300;
+					pickUps[i].pickedUp = true;
+				}
+
+				if (pickUps[i].getWhichPowerUp() == 2)
+				{
+					//player.changeColourToRed();
+					player.increaseHealth(10);
+					pickUps[i].pickedUp = true;
+				}
+
 			}
 		}
 	}
@@ -638,6 +758,11 @@ void Game::timer()
 	licenseTimer--;
 	helpTimer--;
 
+	if (asteroidSlow == true)
+	{
+		slowAsteroidPowerCounter--;
+	}
+	
 }
 void Game::changeState()
 {

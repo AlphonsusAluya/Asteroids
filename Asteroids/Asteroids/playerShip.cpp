@@ -27,6 +27,15 @@ Player::Player()
 	sprite2.setTexture(icon);
 }
 
+void Player::increaseHealth(int t_addHealth)
+{
+	if (counter <= 0)
+	{
+		health += t_addHealth;
+		counter = 40;
+	}
+	
+}
 void Player::addScore(int t_plus)
 {
 	score = score + t_plus;
@@ -150,9 +159,15 @@ void Player::friction()
 	velocity.y = velocity.y * 0.990;
 }
 
-void Player::changeColourToRed()
+void Player::changeColourToTransparent()
 {
 	sprite.setColor(sf::Color(255,255,255,100)); // changes to transparent colour when ship is being hit with asteroid
+
+}
+
+void Player::changeColourToRed()
+{
+	sprite.setColor(sf::Color(255, 0, 0, 100));
 }
 
 void Player::changeColourToNormal()
