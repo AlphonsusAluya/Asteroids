@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -34,6 +34,7 @@
     <ClInclude Include="Music.h" />
     <ClInclude Include="MyVector3.h" />
     <ClInclude Include="pauseMenu.h" />
+    <ClInclude Include="pickUps.h" />
     <ClInclude Include="pickUpSystem.h" />
     <ClInclude Include="playerShip.h" />
     <ClInclude Include="splash.h" />
@@ -55,6 +56,7 @@
     <ClCompile Include="Music.cpp" />
     <ClCompile Include="MyVector3.cpp" />
     <ClCompile Include="pauseMenu.cpp" />
+    <ClCompile Include="pickUps.cpp" />
     <ClCompile Include="pickUpSystem.cpp" />
     <ClCompile Include="playerShip.cpp" />
     <ClCompile Include="splash.cpp" />
