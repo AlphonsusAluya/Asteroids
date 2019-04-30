@@ -67,6 +67,7 @@ public:
 	Game();
 	~Game();
 	void run();
+	bool press;
 	int helpTimer = 20;
 	int licenseTimer = 60;
 	void processEvents();
@@ -76,6 +77,7 @@ public:
 	void setupFontAndText();
 	void setupSprite();
 	void setUpBullets();
+	void bulletMove();
 	void mouseClicks(sf::Event t_event, sf::RenderWindow &t_window);
 	bool asteroidShot = false;
 	sf::RenderWindow m_window; // main SFML window

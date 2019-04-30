@@ -5,7 +5,7 @@ Bullets::Bullets()
 	loadContent();
 	getBody();
 	bullets.setPosition(-1000, -1000);
-	bulletVelocity = { 0,0 };
+	bulletVelocity = { 5,5 };
 	waitCounter = 10;
 	readyToFire = true;
 
@@ -79,25 +79,25 @@ void Bullets::fire()
 				if (bullets.getPosition().x > Onscreen.x)
 				{
 					bullets.setPosition(-1000, -1000);
-					bulletVelocity = { 0.0,0.0 };
+			/*		bulletVelocity = { 0.0,0.0 };*/
 					readyToFire = true;
 				}
 				if (bullets.getPosition().x < 0)
 				{
 					bullets.setPosition(-1000, -1000);
-					bulletVelocity = { 0.0,0.0 };
+					/*bulletVelocity = { 0.0,0.0 };*/
 					readyToFire = true;
 				}
 				if (bullets.getPosition().y > Onscreen.y)
 				{
 					bullets.setPosition(-1000, -1000);
-					bulletVelocity = { 0.0,0.0 };
+					//bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
 				if (bullets.getPosition().y < 0)
 				{
 					bullets.setPosition(-1000, -1000);
-					bulletVelocity = { 0.0,0.0 };
+					//bulletVelocity = { 0.0,0.0 };
 					readyToFire = true;
 				}
 			

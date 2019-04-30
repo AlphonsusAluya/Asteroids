@@ -100,9 +100,11 @@ void Game::processEvents()
 					}
 					if (paused == false)
 					{
-						if (event.key.code == sf::Keyboard::Space)
+						if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
 						{
+							press = true;
 							setUpBullets(); // fires the bullets
+							
 						}
 					}
 				}
@@ -150,9 +152,12 @@ void Game::update(sf::Time t_deltaTime)
 		{
 			for (int i = 0; i < NUMOFBULLETS; i++)
 			{
-				bullet[i].fire();
-				bullet[i].setPos(player.location);  // checks the bullets and position
+				bullet[i].fire(); // checks the bullets 
+				
 			}
+			
+			bulletMove();
+		
 			collision();
 			for (int i = 0; i < numOfAsteroids; i++)
 			{
@@ -320,7 +325,7 @@ void Game::render()
 				mediumAsteroids[i].draw(m_window);
 			}
 		}
-<<<<<<< HEAD
+
 		m_window.draw(healthMessage);
 		m_window.draw(scoreMessage);
 		player.draw(m_window);
@@ -329,10 +334,9 @@ void Game::render()
 		{
 			bullet[i].draw(m_window);		//supposed to draw bullets
 		}
-=======
+
 		
-		
->>>>>>> 417fccb38388c967e2c3d571da7edd9e93e32f0f
+
 		
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
@@ -438,12 +442,12 @@ void Game::setUpBullets()
 		{
 			if (bullet[i].bullets.getPosition() == bullet[i].Onscreen && bullet[i + 1].bullets.getPosition() == bullet[i + 1].Onscreen) // checks if its on screen
 			{
-				bullet[i].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(25, 25));
-				bullet[i +1].bullets.setPosition(player.getBody().getPosition() + sf::Vector2f(-25, -25)); // sets two bullet positions
+				bullet[i].setPos(player.location + sf::Vector2f(25, 25));
+				bullet[i +1].setPos(player.location + sf::Vector2f(-25, -25)); // sets two bullet positions
 
 				bullet[i].bulletVelocity = player.getDirection(); // sets the velocity to the player look direction
-				bullet[i].bulletVelocity.x = bullet[i].bulletVelocity.x * 2; // multiplies it so it moves
-				bullet[i].bulletVelocity.y = bullet[i].bulletVelocity.y * 2;
+				bullet[i].bulletVelocity.x = bullet[i].bulletVelocity.x * 8; // multiplies it so it moves
+				bullet[i].bulletVelocity.y = bullet[i].bulletVelocity.y * 8;
 				bullet[i].readyToFire = false; // changes the bool
 				bullet[i].waitCounter = 10; // set the wait counter
 
@@ -454,7 +458,6 @@ void Game::setUpBullets()
 				bullet[i + 1].waitCounter = 10; // set the wait counter
 
 				
-				//bullet[i].setPos(sf::Vector2f(100,100)); //
 
 				sound.laserSound();
 				break;
@@ -463,19 +466,27 @@ void Game::setUpBullets()
 		}
 		else
 		{
-			bullet[i].waitCounter--;
-			bullet[i + 1].waitCounter--;
-
-			if (bullet[i].waitCounter <= 0)
+			if (bullet[i].bullets.getPosition().x > 800 || bullet[i].bullets.getPosition().y > 600 || bullet[i].bullets.getPosition().x < 0 || bullet[i].bullets.getPosition().y < 0 ||
+				bullet[i + 1].bullets.getPosition().x > 800 || bullet[i + 1].bullets.getPosition().y > 600 || bullet[i + 1].bullets.getPosition().x < 0 || bullet[i + 1].bullets.getPosition().y < 0)
 			{
-				bullet[i].readyToFire = true;				//sets the wait counter for both bullets
-			}
-
-			if (bullet[i + 1].waitCounter <= 0)
-			{
+				bullet[i].readyToFire = true;
 				bullet[i + 1].readyToFire = true;
+				press = false;
 			}
+			
 		}
+	}
+}
+
+void Game::bulletMove()
+{
+	for (int i = 0; i < NUMOFBULLETS; i++)
+	{
+		if (press == true)
+		{
+			bullet[i].bullets.move(bullet[i].bulletVelocity);
+		}
+
 	}
 }
 

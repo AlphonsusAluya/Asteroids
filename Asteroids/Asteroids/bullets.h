@@ -9,25 +9,24 @@ class Bullets
 {
 	
 	
-	sf::RectangleShape screenArea;
+	
 	
 	
 	sf::Texture texture;
 	MyVector3 location;
 
-	float angle = 3.14159265359 / 16.0;
-	Player player;
 public:
 	Bullets();
-	sf::Vector2f bulletVelocity;
+	sf::Vector2f bulletVelocity = {5, 5};
 	sf::Sprite bullets;
 	sf::Sprite getBody();
 	void loadContent();
 	int waitToFire();
-	int waitCounter = 10;
+	int waitCounter;
 	sf::Vector2f bulletVelocitys();
-	sf::Vector2f Onscreen = { -800, -600 };
-	bool readyToFire = true; // getting ready to fire
+	sf::Vector2f Onscreen = { -1000, -1000 };
+	sf::Vector2f offScreen = { -100, -100 };
+	bool readyToFire; // getting ready to fire
 	bool getTimeToFire();
 	void setBulletVelocity(float t_x, float t_y); // set up velocity
 	void setTimeToFire(bool m_bool); // sets the actual time
