@@ -199,13 +199,20 @@ void Game::collision()
 	MyVector3 distanceSmall;
 	float lengthSmall;
 
-	int LARGE_IMAGE_LENTH = 93;
-	int MEDIUM_IMAGE_LENTH = 58;
-	int SMALL_IMAGE_LENTH = 29;
+	
+	int LARGE_IMAGE_LENTH = 96;
+	int MEDIUM_IMAGE_LENTH = 64;
+	int SMALL_IMAGE_LENTH = 32;
+
+	float largeSize = (LARGE_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
+	float mediumSize = (MEDIUM_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
+	float smallize = (SMALL_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 	for (int i = 0; i < numOfAsteroids; i++)
 	{
-		MyVector3 LargeLocation = { asteroidsL[i].location.x + 48, asteroidsL[i].location.y + 48, 0 };
-		MyVector3 mediumLocation = { mediumAsteroids[i].location.x + 32, mediumAsteroids[i].location.y + 32, 0 };
+
+
+		MyVector3 LargeLocation = { asteroidsL[i].location.x + 48, asteroidsL[i].location.y + 48, 0 }; // finds centre of large asteroid image
+		MyVector3 mediumLocation = { mediumAsteroids[i].location.x + 32, mediumAsteroids[i].location.y + 32, 0 };  // finds centre of medium asteroid image
 
 		distanceLarge = LargeLocation - player.location;
 		length = distanceLarge.length();
@@ -213,9 +220,10 @@ void Game::collision()
 		distanceMedium = mediumLocation - player.location;
 		lengthMedium = distanceMedium.length();
 
+	
 		if (asteroidsL[i].wasShot == false)
 		{
-			if (length <= LARGE_IMAGE_LENTH)
+			if (length <= largeSize)
 			{
 				player.decreaseHealth(1); // large asteroid collision
 				
@@ -224,8 +232,7 @@ void Game::collision()
 
 		if (mediumAsteroids[i].wasShot == false)
 		{
-
-			if (lengthMedium <= MEDIUM_IMAGE_LENTH)
+			if (lengthMedium <= mediumSize)
 			{
 				player.decreaseHealth(2); // med asteroid collison
 				
@@ -241,7 +248,7 @@ void Game::collision()
 			distanceSmall = smallLocation - player.location;
 			lengthSmall = distanceSmall.length();
 
-			if (lengthSmall <= SMALL_IMAGE_LENTH)
+			if (lengthSmall <= smallize)
 			{
 				player.decreaseHealth(3); // med asteroid collison
 				

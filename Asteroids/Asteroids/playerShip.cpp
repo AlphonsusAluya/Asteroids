@@ -14,7 +14,7 @@ Player::Player()
 		std::cout << "error with menu icon image";
 	}
 	sprite.setTexture(texture);
-	REAL_SIZE = PLAYER_SIZE * 0.2;
+	REAL_SIZE = PLAYER_SIZE * 0.15;
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
 	sprite.setScale(0.15, 0.15);
 
@@ -59,7 +59,7 @@ void Player::decreaseHealth(int t_whichAsteroid)
 			health = health - 3;
 		}
 
-		if (t_whichAsteroid == 3) // medium asteroid
+		if (t_whichAsteroid == 3) // small asteroid
 		{
 			health = health - 1;
 		}
