@@ -145,3 +145,13 @@ void Player::friction()
 	velocity.y = velocity.y * 0.990;
 }
 
+void Player::changeColourToRed()
+{
+	sprite.setColor(sf::Color(255,255,255,100));
+}
+
+void Player::changeColourToNormal()
+{
+	sprite.setColor(sf::Color::White);
+}
+

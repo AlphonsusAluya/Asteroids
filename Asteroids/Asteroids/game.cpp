@@ -190,6 +190,11 @@ void Game::update(sf::Time t_deltaTime)
 
 void Game::collision()
 {
+
+//////////////////////////////////////////////// <summary>
+	/// collisions with Asteroids
+////////////////////////////////////////////////<summary>
+
 	MyVector3 distanceLarge;
 	float length;
 
@@ -207,6 +212,7 @@ void Game::collision()
 	float largeSize = (LARGE_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 	float mediumSize = (MEDIUM_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
 	float smallize = (SMALL_IMAGE_LENTH / 2 + player.REAL_SIZE / 2);
+
 	for (int i = 0; i < numOfAsteroids; i++)
 	{
 
@@ -226,7 +232,11 @@ void Game::collision()
 			if (length <= largeSize)
 			{
 				player.decreaseHealth(1); // large asteroid collision
-				
+				player.changeColourToRed();
+			}
+			else
+			{
+				player.changeColourToNormal();
 			}
 		}
 
@@ -255,9 +265,14 @@ void Game::collision()
 			}
 		}
 	}
-		
-		
-	
+
+///////////////////////////////// <summary>
+/// collisions with bullet
+//////////////////////////////////// </summary>
+
+
+
+
 }
 /// <summary>
 /// draw the frame and then switch bufers

@@ -44,5 +44,6 @@ public:
 	void pos();
 	void addScore(int t_plus);
 	void friction();
-
+	void changeColourToRed();
+	void changeColourToNormal();
 };
