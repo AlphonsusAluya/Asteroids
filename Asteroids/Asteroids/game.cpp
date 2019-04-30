@@ -320,7 +320,7 @@ void Game::render()
 				mediumAsteroids[i].draw(m_window);
 			}
 		}
-<<<<<<< HEAD
+
 		m_window.draw(healthMessage);
 		m_window.draw(scoreMessage);
 		player.draw(m_window);
@@ -329,10 +329,9 @@ void Game::render()
 		{
 			bullet[i].draw(m_window);		//supposed to draw bullets
 		}
-=======
+
 		
-		
->>>>>>> 417fccb38388c967e2c3d571da7edd9e93e32f0f
+
 		
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
