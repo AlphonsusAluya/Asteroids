@@ -160,9 +160,11 @@ void Game::update(sf::Time t_deltaTime)
 			}
 			
 			bulletMove();
-		
-				
-				
+			if (player.getHealth() <= 0)
+			{
+				finnito.won = false;
+				currentState = GameState::GameDone;
+			}
 		} // end for
 
 			collision();
@@ -171,12 +173,6 @@ void Game::update(sf::Time t_deltaTime)
 
 				asteroidsL[i].update();
 				mediumAsteroids[i].update();
-				
-
-		/*		for (int i = 0; i < NUMOFBULLETS; i++)
-				{
-					bullet[i].fire();
-				}*/
 				
 			} // end for
 
@@ -198,8 +194,8 @@ void Game::update(sf::Time t_deltaTime)
 					anotherRound = false;
 					player.addScore(5);
 				}
-				else
-					gameOver = true;	
+
+					
 				
 			}
 			player.update();
@@ -297,6 +293,13 @@ void Game::scoreTracker()
 	{
 		anotherRound = true;
 	}
+
+	if (player.getScore() == 350) // max asteroids
+	{
+		finnito.won = true;
+		currentState = GameState::GameDone;
+	}
+	
 
 }
 
@@ -407,32 +410,6 @@ void Game::collision()
 
 			}
 		}
-
-		for (int i = 0; i < numOfAsteroids; i++)
-		{
-			for (int j = 0; j <= NUMOFBULLETS; j++)
-			{
-				MyVector3 LargeLocation = { asteroidsL[i].location.x + 48, asteroidsL[i].location.y + 48, 0 }; // finds centre of large asteroid image
-				MyVector3 smallLocation = { bullet[j].getBody().getPosition().x + 8, bullet[j].getBody().getPosition().y + 8, 0 };
-				MyVector3 mediumLocation = { mediumAsteroids[i].location.x + 32, mediumAsteroids[i].location.y + 32, 0 };  // finds centre of medium asteroid image
-				distanceSmall = LargeLocation - smallLocation; // distance between large asteroid and bullet
-				lengthSmall = distanceSmall.length();
-
-				distanceMedium = mediumLocation - smallLocation;
-				lengthMedium = distanceMedium.length();
-
-				if (lengthSmall <= smallBulletSize) // colision with large asteroid
-				{
-					bulletHitLargeAsteroid(i);
-				}
-
-				if (lengthMedium <= smallBulletSize) // colision with large asteroid
-				{
-					bulletHitMediumAsteroid(i);
-				}
-
-			}
-		}
 		
 	}
 
@@ -440,7 +417,31 @@ void Game::collision()
 /// collisions with bullet
 //////////////////////////////////// </summary>
 
+	for (int i = 0; i < numOfAsteroids; i++)
+	{
+		for (int j = 0; j <= NUMOFBULLETS; j++)
+		{
+			MyVector3 LargeLocation = { asteroidsL[i].location.x + 48, asteroidsL[i].location.y + 48, 0 }; // finds centre of large asteroid image
+			MyVector3 smallLocation = { bullet[j].getBody().getPosition().x + 8, bullet[j].getBody().getPosition().y + 8, 0 };
+			MyVector3 mediumLocation = { mediumAsteroids[i].location.x + 32, mediumAsteroids[i].location.y + 32, 0 };  // finds centre of medium asteroid image
+			distanceSmall = LargeLocation - smallLocation; // distance between large asteroid and bullet
+			lengthSmall = distanceSmall.length();
 
+			distanceMedium = mediumLocation - smallLocation;
+			lengthMedium = distanceMedium.length();
+
+			if (lengthSmall <= smallBulletSize) // colision with large asteroid
+			{
+				bulletHitLargeAsteroid(i);
+			}
+
+			if (lengthMedium <= smallBulletSize) // colision with large asteroid
+			{
+				bulletHitMediumAsteroid(i);
+			}
+
+		}
+	}
 
 
 }
@@ -455,6 +456,8 @@ void Game::render()
 		license.draw(m_window);			//draws the screen
 	}
 	
+
+
 	if (currentState == GameState::SplashScreen)
 	{
 		splash.draw(m_window);		//draws the screen
@@ -569,6 +572,11 @@ void Game::render()
 		}
 		pause.draw(m_window);
 	}
+
+	if (currentState == GameState::GameDone)
+	{
+		finnito.draw(m_window);			//draws the screen
+	}
 	m_window.display();
 }
 
@@ -608,7 +616,7 @@ void Game::setupFontAndText() // sets up fonts and texts
 	upgrade.init(m_ArialBlackfont);
 	upgradeHelp.init(m_ArialBlackfont);
 	pickUp.init(m_ArialBlackfont);
-
+	finnito.init(m_ArialBlackfont);
 	controlHelp.init(m_ArialBlackfont);
 
 }
@@ -707,13 +715,38 @@ void Game::mouseClicks(sf::Event t_event, sf::RenderWindow &t_window)
 				currentState = GameState::HelpScreen;
 			}
 
-			if (position.y >= 321) // help menu
+			if (position.y >= 321) // upgrade menu
 			{
 				currentState = GameState::UpgradeScreen;
 			}
 		}
 
 		
+	}
+
+	if (currentState == GameState::GameDone)
+	{
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			sf::Vector2i position = sf::Mouse::getPosition(t_window);
+			
+			if (position.y <= 220) // first button / start game
+			{
+				player.reset();
+				paused = false;
+				currentState = GameState::GamePlay;
+			}
+
+			if (position.y >= 220 && position.y <= 320) // help menu
+			{
+				currentState = GameState::HelpScreen;
+			}
+
+			if (position.y >= 321) // help menu
+			{
+				currentState = GameState::UpgradeScreen;
+			}
+		}
 	}
 
 

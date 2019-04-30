@@ -5,10 +5,12 @@ sf::Vector2f Player::getDirection()
 	return lookDirection;
 }
 
+
+
 Player::Player()
 {
 	counter = 40;
-	score = 0;
+	score = 340;
 	health = 100;
 	if (!texture.loadFromFile("ASSETS/IMAGES/MUPMUP7UP.png"))
 	{
@@ -25,6 +27,15 @@ Player::Player()
 
 	location = { 200,300,0 };
 	sprite2.setTexture(icon);
+}
+
+void Player::reset()
+{
+	counter = 40;
+	score = 0;
+	health = 100;
+	location = { 200,300,0 };
+	velocity = { 0,0,0 };
 }
 
 void Player::increaseHealth(int t_addHealth)
@@ -69,17 +80,17 @@ void Player::decreaseHealth(int t_whichAsteroid)
 
 		if (t_whichAsteroid == 1) // large asteroid
 		{
-			health = health - 5;
+			health = health - 15;
 		}
 
 		if (t_whichAsteroid == 2) // medium asteroid
 		{
-			health = health - 3;
+			health = health - 10;
 		}
 
 		if (t_whichAsteroid == 3) // small asteroid
 		{
-			health = health - 1;
+			health = health - 5;
 		}
 		counter = 40;
 	}

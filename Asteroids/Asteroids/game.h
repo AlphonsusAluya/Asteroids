@@ -23,7 +23,7 @@
 #include "pauseMenu.h"
 #include "bullets.h"
 #include "pickUps.h"
-
+#include "gameOver.h"
 // Andrew Bashorum And Alphonsus
 // est time: 40 hours 
 // act time 2 hours, +
@@ -39,7 +39,7 @@ class Game
 	Upgrade upgrade;
 	UpgradeHelp upgradeHelp;
 	PickUp pickUp;
-
+	GameOver finnito;
 	PauseMenu pause;
 	ControlHelp controlHelp;
 

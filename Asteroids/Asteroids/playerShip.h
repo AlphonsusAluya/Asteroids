@@ -49,4 +49,5 @@ public:
 	void changeColourToRed();
 	void changeColourToNormal();
 	void increaseHealth(int t_addHealth);
+	void reset();
 };

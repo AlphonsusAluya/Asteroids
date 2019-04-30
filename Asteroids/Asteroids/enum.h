@@ -11,5 +11,6 @@ enum class GameState
 	PauseMenu,
 	GamePlay,
 	UpgradeScreen, 
-	Level
+	Level,
+	GameDone
 };
