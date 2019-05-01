@@ -15,12 +15,12 @@ void PickUps::loadContent()
 	{
 		std::cout << "error with lhealthPickUPTexture";
 	}
-	sprite.setTexture(healthPickUPTexture);
+	sprite.setTexture(healthPickUPTexture); // set the texture
 }
 
 void PickUps::whichPickUP()
 {
-	 powerUp = (rand() % 2 + 1);
+	 powerUp = (rand() % 2 + 1); // gives a random power
 
 	if (powerUp == 1)
 	{
@@ -59,7 +59,7 @@ void PickUps::reset()
 
 void PickUps::update()
 {
-	sprite.setPosition(location);
+	sprite.setPosition(location); // sets position
 	
 }
 
@@ -69,7 +69,7 @@ void PickUps::draw(sf::RenderWindow & window)
 	{
 		if (location.y < 605)
 		{
-			window.draw(sprite);
+			window.draw(sprite); // draws the sprite
 		}
 	}
 	

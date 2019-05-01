@@ -28,10 +28,10 @@ public:
 
 
 
-	void positioning();
-	void move();
-	void checkBorders();
-	void update();
-	void draw(sf::RenderWindow & window);
+	void positioning(); // sets position
+	void move(); // moves the asteroids
+	void checkBorders(); // checks the borders
+	void update(); // updates asteroids
+	void draw(sf::RenderWindow & window); // draws the asteroids 
 };
 

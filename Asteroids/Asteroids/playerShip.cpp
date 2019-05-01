@@ -20,13 +20,13 @@ Player::Player()
 	{
 		std::cout << "error with menu icon image";
 	}
-	sprite.setTexture(texture);
+	sprite.setTexture(texture); // sets the sprite texture
 	REAL_SIZE = PLAYER_SIZE * 0.15;
 	sprite.setOrigin(sprite.getGlobalBounds().width / 2, sprite.getGlobalBounds().height / 2);
-	sprite.setScale(0.15, 0.15);
+	sprite.setScale(0.15, 0.15); // makes the ship size smaller
 
-	location = { 200,300,0 };
-	sprite2.setTexture(icon);
+	location = { 200,300,0 }; // sets the location at the start
+	sprite2.setTexture(icon); //sets the sprite for menu icon
 }
 
 void Player::reset()
@@ -43,7 +43,7 @@ void Player::increaseHealth(int t_addHealth)
 	if (counter <= 0)
 	{
 		health += t_addHealth;
-		counter = 40;
+		counter = 40; // adds health over time
 	}
 	
 }
@@ -52,7 +52,7 @@ void Player::addScore(int t_plus)
 	if (counter <= 0)
 	{
 		score = score + t_plus;
-		counter = 40;
+		counter = 40; // adds health over time
 	}
 }
 void Player::update()
@@ -66,12 +66,12 @@ void Player::update()
 
 int Player::getHealth()
 {
-	return health;
+	return health; // returns the health 
 }
 
 int Player::getScore()
 {
-	return score;
+	return score; // returns the score
 }
 void Player::decreaseHealth(int t_whichAsteroid)
 {
@@ -90,7 +90,7 @@ void Player::decreaseHealth(int t_whichAsteroid)
 
 		if (t_whichAsteroid == 3) // small asteroid
 		{
-			health = health - 5;
+			health = health - 5;						// each asteroid takes off a different amount of health
 		}
 		counter = 40;
 	}
@@ -98,18 +98,18 @@ void Player::decreaseHealth(int t_whichAsteroid)
 
 void Player::draw(sf::RenderWindow & window)
 {
-	window.draw(sprite);
-	window.draw(sprite2);
+	window.draw(sprite); // draws the sprite
+	window.draw(sprite2); // draws the menu icon
 }
 
 sf::Sprite Player::getBody()
 {
-	return sprite;
+	return sprite; // returns the sprite
 }
 
 sf::Sprite Player::getBody2()
 {
-	return sprite2;
+	return sprite2; // returns the menu icon
 }
 
 void Player::rotate(sf::Event t_event)
@@ -124,18 +124,18 @@ void Player::rotate(sf::Event t_event)
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
 	{
-		angle -= 0.2;
+		angle -= 0.2; // rotates the ship
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
 	{
-		angle += 0.2;
+		angle += 0.2; // rotates the ship
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
 	{
 		
 		if (velocity.length() < MAX_FORWARD_SPEED) // limits when booster can be used
 		{
-			force = force + lookDirection; 
+			force = force + lookDirection; // moves forward 
 		}
 
 		sound.thePlayerSound();
@@ -145,7 +145,7 @@ void Player::rotate(sf::Event t_event)
 }
 
 
-void Player::checkBorders()
+void Player::checkBorders() // checks the borders
 {
 	if (location.x > 800)
 	{
@@ -168,7 +168,7 @@ void Player::checkBorders()
 	}
 }
 
-void Player::friction()
+void Player::friction() // so the ship slows down over time
 {
 	velocity.x = velocity.x * 0.990;
 	velocity.y = velocity.y * 0.990;
@@ -182,11 +182,11 @@ void Player::changeColourToTransparent()
 
 void Player::changeColourToRed()
 {
-	sprite.setColor(sf::Color(255, 0, 0, 100));
+	sprite.setColor(sf::Color(255, 0, 0, 100)); // changes the colour
 }
 
 void Player::changeColourToNormal()
 {
-	sprite.setColor(sf::Color::White);
+	sprite.setColor(sf::Color::White); // changes the colour
 }
 

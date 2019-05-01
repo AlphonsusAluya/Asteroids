@@ -31,25 +31,25 @@ void Music::loadContent()
 void Music::thePlayerSound()
 {
 	playerSound.setBuffer(buffer);
-	playerSound.play();
+	playerSound.play(); // plays the sounds
 }
 
 void Music::laserSound()
 {
 	laser.setBuffer(buffer1);
-	laser.play();
+	laser.play(); //plays the sound for bullets
 }
 
 void Music::menuSound()
 {
 	menuScreenSound.setBuffer(buffer2);
-	menuScreenSound.play();
+	menuScreenSound.play(); // plays the sound for the menu screen
 }
 
 void Music::gamePlaySound()
 {
 	asteroid.setBuffer(buffer3);
-	asteroid.play();
+	asteroid.play(); // gameplay sound
 }
 
 void Music::stop()

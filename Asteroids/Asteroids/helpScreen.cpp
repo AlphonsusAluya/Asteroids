@@ -9,27 +9,27 @@ Help::Help()
 void Help::init(sf::Font & font)
 {
 
-	message.setFont(font);
+	message.setFont(font); // sets the font
 	message.setString("Controls \nPick-up-sytem \nUpgrade-System");
 
-	message.setPosition(140.0f, 120.0f);
-	message.setCharacterSize(70);
-	message.setOutlineColor(sf::Color::Green);
-	message.setFillColor(sf::Color::White);
-	message.setOutlineThickness(1.0f);
+	message.setPosition(140.0f, 120.0f); // sets position of message
+	message.setCharacterSize(70); // sets the character size
+	message.setOutlineColor(sf::Color::Green); // sets the outline colour
+	message.setFillColor(sf::Color::White); // sets the fill colour
+	message.setOutlineThickness(1.0f); // sets the thickness
 
-	returnMessage.setFont(font);
+	returnMessage.setFont(font); // sets the font
 	returnMessage.setString("Press R to return");
 
-	returnMessage.setPosition(200.0f, 420.0f);
-	returnMessage.setCharacterSize(30);
-	returnMessage.setOutlineColor(sf::Color::Red);
-	returnMessage.setFillColor(sf::Color::White);
-	returnMessage.setOutlineThickness(1.0f);
+	returnMessage.setPosition(200.0f, 420.0f); // sets position of message
+	returnMessage.setCharacterSize(30); // sets the character size
+	returnMessage.setOutlineColor(sf::Color::Red); // sets the outline colour
+	returnMessage.setFillColor(sf::Color::White); // sets the fill colour
+	returnMessage.setOutlineThickness(1.0f); // sets the thickness
 }
 
 void Help::draw(sf::RenderWindow & window)
 {
 	window.draw(returnMessage);
-	window.draw(message);
+	window.draw(message);		// draws the messages
 }

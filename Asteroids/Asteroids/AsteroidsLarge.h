@@ -19,17 +19,17 @@ public:
 	MyVector3 velocity;
 	MyVector3 location;
 
-	sf::Sprite sprite;
+	sf::Sprite sprite; 
 	sf::Texture asteroidTexture;
 
 	int northOrSouth =1;
 	sf::Sprite getLargeAsteroid();
 
 	void positioning();
-	void move();
-	void checkBorders();
-	void update();
-	void draw(sf::RenderWindow & window);
+	void move(); // moves asteroid
+	void checkBorders(); // checks border
+	void update(); // updates the asteroids
+	void draw(sf::RenderWindow & window); // draws asteroids
 	MyVector3 getVelocity();
 };
 

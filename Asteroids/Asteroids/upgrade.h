@@ -13,14 +13,14 @@ class Upgrade
 	sf::Sprite body;
 public:
 
-	Upgrade();
+	Upgrade(); // default constructor
 
-	void loadContent();
-	sf::Sprite getBody();
+	void loadContent(); // looads contents from files
+	sf::Sprite getBody(); // returns sprite
 	sf::Text message;
 	sf::Text pressAnyKey;
 	void init(sf::Font &font);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window); // draw function
 	void defense();
 };
 

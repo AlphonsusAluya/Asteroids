@@ -17,7 +17,7 @@ void Upgrade::loadContent()
 
 sf::Sprite Upgrade::getBody()
 {
-	return body;
+	return body; // returns body
 }
 
 
@@ -26,18 +26,18 @@ sf::Sprite Upgrade::getBody()
 void Upgrade::init(sf::Font & font)
 {
 
-	message.setFont(font);
+	message.setFont(font); // sets the font
 	message.setString("Upgrades consist of a blue pill which will be your shield \n a red pill which will increase the size of the bullet \n / R to return");
-	message.setPosition(40.0f, 40.0f);
-	message.setCharacterSize(20);
-	message.setOutlineColor(sf::Color::Red);
-	message.setFillColor(sf::Color::Black);
-	message.setOutlineThickness(3.0f);
+	message.setPosition(40.0f, 40.0f); // sets position of message
+	message.setCharacterSize(20); // sets the character size
+	message.setOutlineColor(sf::Color::Red); // sets the outline colour
+	message.setFillColor(sf::Color::Black); // sets the fill colour
+	message.setOutlineThickness(3.0f); // sets the thickness
 }
 
 void Upgrade::draw(sf::RenderWindow & window)
 {
-	window.draw(message);
+	window.draw(message); // draws the messages
 }
 
 void Upgrade::defense()

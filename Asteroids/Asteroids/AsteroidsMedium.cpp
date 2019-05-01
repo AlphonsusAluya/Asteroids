@@ -8,14 +8,14 @@ AsteroidsMedium::AsteroidsMedium()
 		std::cout << "error with large asteroid image";
 	}
 
-	sprite.setTexture(asteroidTexture);
+	sprite.setTexture(asteroidTexture); // sets the texture
 	positioning();
 	location = originalLocation;
 }
 
 sf::Sprite AsteroidsMedium::getMediumAsteroid()
 {
-	return sprite;
+	return sprite; // returns sprite
 }
 
 
@@ -38,7 +38,7 @@ void AsteroidsMedium::positioning()
 	double randomVelocityX = 0;
 	double randomVelocityY = 0;
 
-	randomVelocityX = rand() % 10 - 5;
+	randomVelocityX = rand() % 10 - 5; // randomizing the velocity
 
 	randomX = rand() % 600 + 1;
 
@@ -62,10 +62,10 @@ void AsteroidsMedium::positioning()
 void AsteroidsMedium::move()
 {
 	location = location + velocity;
-	sprite.setPosition(location);
+	sprite.setPosition(location); // moves the asteroid
 }
 
-void AsteroidsMedium::checkBorders()
+void AsteroidsMedium::checkBorders() // checks the border
 {
 	if (location.x > 805 || location.x < -5)
 	{
@@ -88,7 +88,7 @@ void AsteroidsMedium::update()
 
 void AsteroidsMedium::draw(sf::RenderWindow & window)
 {
-	window.draw(sprite);
+	window.draw(sprite); // draws the sprite
 }
 
 

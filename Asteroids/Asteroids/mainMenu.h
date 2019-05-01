@@ -19,6 +19,6 @@ public:
 	sf::Text message;
 	
 
-	void init(sf::Font &font);
-	void draw(sf::RenderWindow &window);
+	void init(sf::Font &font); // sets the font 
+	void draw(sf::RenderWindow &window); // draws the messages
 };

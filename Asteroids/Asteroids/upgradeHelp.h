@@ -12,7 +12,7 @@ class UpgradeHelp
 
 public:
 
-	UpgradeHelp();
+	UpgradeHelp(); // default constructor
 
 
 	sf::Text message;

@@ -11,10 +11,10 @@ class ControlHelp
 {
 public:
 
-	ControlHelp();
+	ControlHelp(); // default constructor
 
 	sf::Text returnMessage;
 	sf::Text message;
-	void init(sf::Font &font);
-	void draw(sf::RenderWindow &window);
+	void init(sf::Font &font); // the ont for text
+	void draw(sf::RenderWindow &window); // draws message
 };

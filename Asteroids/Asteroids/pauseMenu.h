@@ -20,5 +20,5 @@ public:
 
 	sf::RectangleShape rect;
 	void init(sf::Font &font);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window); // draws the message
 };

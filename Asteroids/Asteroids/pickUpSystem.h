@@ -12,11 +12,11 @@ class PickUp
 
 public:
 
-	PickUp();
+	PickUp(); // default constructor
 
 
 	sf::Text message;
 	sf::Text pressAnyKey;
 	void init(sf::Font &font);
-	void draw(sf::RenderWindow &window);
+	void draw(sf::RenderWindow &window); // draw function
 };

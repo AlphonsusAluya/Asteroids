@@ -24,13 +24,13 @@ public:
 	sf::Texture healthPickUPTexture;
 	sf::Texture moneyPickUPTexture;
 
-	void loadContent();
-	void whichPickUP();
-	void positioning();
+	void loadContent(); // loads the content from files
+	void whichPickUP(); // random power up
+	void positioning(); // position function for the power ups
 	int getWhichPowerUp();
 	void reset();
 	bool pickedUp;
 
 	void update();
-	void draw(sf::RenderWindow & window);
+	void draw(sf::RenderWindow & window); // draw function
 };
