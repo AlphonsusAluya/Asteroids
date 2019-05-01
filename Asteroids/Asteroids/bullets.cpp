@@ -76,7 +76,7 @@ void Bullets::fire()
 		if (bullets.getPosition().x == -1000) // checks the bullet
 		{
 				bullets.move(bulletVelocity);
-				if (bullets.getPosition().x > Onscreen.x)
+				if (bullets.getPosition().x > 800)
 				{
 					bullets.setPosition(-1000, -1000);
 			/*		bulletVelocity = { 0.0,0.0 };*/
@@ -88,7 +88,7 @@ void Bullets::fire()
 					/*bulletVelocity = { 0.0,0.0 };*/
 					readyToFire = true;
 				}
-				if (bullets.getPosition().y > Onscreen.y)
+				if (bullets.getPosition().y > 600)
 				{
 					bullets.setPosition(-1000, -1000);
 					//bulletVelocity = { 0.0,0.0 };

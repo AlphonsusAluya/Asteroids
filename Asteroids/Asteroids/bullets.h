@@ -23,7 +23,7 @@ public:
 	void loadContent();
 	int waitToFire();
 	int waitCounter;
-	sf::Vector2f bulletVelocitys();
+	sf::Vector2f bulletVelocitys(); // sets the bullet velocity
 	sf::Vector2f Onscreen = { -1000, -1000 };
 	sf::Vector2f offScreen = { -100, -100 };
 	bool readyToFire; // getting ready to fire

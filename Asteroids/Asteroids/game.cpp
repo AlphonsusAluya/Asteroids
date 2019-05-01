@@ -124,7 +124,7 @@ void Game::bulletHitLargeAsteroid(int t_asteroidArrayPosition)
 	MyVector3 newLocation = { asteroidsL[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, asteroidsL[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
 	for (int i = 0; i < numOfSmallAsteroids; i++)
 	{
-		smallAsteroids[i].positioning(newLocation, asteroidsL[t_asteroidArrayPosition].velocity);
+		smallAsteroids[i].positioning(newLocation, asteroidsL[t_asteroidArrayPosition].velocity); // if the bullets hit the large asteroids
 	}
 }
 
@@ -135,14 +135,14 @@ void Game::bulletHitMediumAsteroid(int t_asteroidArrayPosition)
 	MyVector3 newLocation = { mediumAsteroids[t_asteroidArrayPosition].location.x + LARGE_ASTEROID_IMAGE_SIZE / 2, mediumAsteroids[t_asteroidArrayPosition].location.y + LARGE_ASTEROID_IMAGE_SIZE / 2, 0 };
 	for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 	{
-		smallAsteroids[i].positioning(newLocation, mediumAsteroids[t_asteroidArrayPosition].velocity);
+		smallAsteroids[i].positioning(newLocation, mediumAsteroids[t_asteroidArrayPosition].velocity); // if the bullets hit the medium asteroids
 	}
 }
 
 void Game::bulletHitSmallAsteroid(int t_asteroidArrayPosition)
 {
 	player.addScore(5);
-	mediumAsteroids[t_asteroidArrayPosition].wasShot = true;
+	mediumAsteroids[t_asteroidArrayPosition].wasShot = true; // if the bullets hit the small asteroids you get score
 }
 void Game::update(sf::Time t_deltaTime)
 {
@@ -157,7 +157,7 @@ void Game::update(sf::Time t_deltaTime)
 				
 			}
 			
-			bulletMove();
+			bulletMove(); // bullets move
 		
 				
 				
@@ -168,17 +168,17 @@ void Game::update(sf::Time t_deltaTime)
 			{
 				if (asteroidsL[i].wasShot == false)
 				{
-					asteroidsL[i].update();
+					asteroidsL[i].update(); // updates big asteroids
 				}
 				
 				if (mediumAsteroids[i].wasShot == false)
 				{
-					mediumAsteroids[i].update();
+					mediumAsteroids[i].update(); // updates the medium asteroids
 				}
 
 				for (int i = 0; i < NUMOFBULLETS; i++)
 				{
-					bullet[i].fire();
+					bullet[i].fire(); // checks the bullets
 				}
 				
 			} // end for
@@ -273,27 +273,27 @@ void Game::scoreTracker()
 {
 	if (player.getScore() == 50)
 	{
-		anotherRound = true;
+		anotherRound = true; // changes the rounds
 	}
 
 	if (player.getScore() == 100)
 	{
-		anotherRound = true;
+		anotherRound = true; // changes the rounds
 	}
 
 	if (player.getScore() == 150)
 	{
-		anotherRound = true;
+		anotherRound = true; // changes the rounds
 	}
 
 	if (player.getScore() == 200)
 	{
-		anotherRound = true;
+		anotherRound = true; // changes the rounds
 	}
 
 	if (player.getScore() == 250)
 	{
-		anotherRound = true;
+		anotherRound = true; // changes the rounds
 	}
 
 	if (player.getScore() == 300) // max asteroids
@@ -396,14 +396,14 @@ void Game::collision()
 				if (pickUps[i].getWhichPowerUp() == 1)
 				{
 					slowAsteroids();
-					slowAsteroidPowerCounter = 300;
+					slowAsteroidPowerCounter = 300; // slows the asteroids down
 					pickUps[i].pickedUp = true;
 				}
 
 				if (pickUps[i].getWhichPowerUp() == 2)
 				{
 					//player.changeColourToRed();
-					player.increaseHealth(10);
+					player.increaseHealth(10); // increases the players health if picked up
 					pickUps[i].pickedUp = true;
 				}
 
@@ -467,8 +467,8 @@ void Game::render()
 
 	if (currentState == GameState::GamePlay)
 	{
-		healthMessage.setString("Health:" + std::to_string(player.getHealth()));
-		scoreMessage.setString("Score:" + std::to_string(player.getScore()));
+		healthMessage.setString("Health:" + std::to_string(player.getHealth())); // sets the string for the health message
+		scoreMessage.setString("Score:" + std::to_string(player.getScore())); // sets the string for the score message
 		sound.gamePlaySound();
 		
 		
@@ -502,18 +502,18 @@ void Game::render()
 		{
 			if (smallAsteroids[i].wasShot == false)
 			{
-				smallAsteroids[i].draw(m_window);
+				smallAsteroids[i].draw(m_window); // draws the small asteroids
 			}
 		}
-		m_window.draw(healthMessage);
-		m_window.draw(scoreMessage);
-		player.draw(m_window);
+		m_window.draw(healthMessage); // draws health message 
+		m_window.draw(scoreMessage); // draws the score Message
+		player.draw(m_window); // draws the player
 
 		for (int i = 0; i < MAX_PICK_UPS; i++)
 		{
 			if (pickUps[i].pickedUp == false)
 			{
-				pickUps[i].draw(m_window);
+				pickUps[i].draw(m_window); // draws pickups
 			}
 		}
 		
@@ -527,20 +527,20 @@ void Game::render()
 		{
 			if (asteroidsL[i].wasShot == false)
 			{
-				asteroidsL[i].draw(m_window);
+				asteroidsL[i].draw(m_window); // draws the big asteroids
 			}
 
 			if (mediumAsteroids[i].wasShot == false)
 			{
-				mediumAsteroids[i].draw(m_window);
+				mediumAsteroids[i].draw(m_window); // draws the medium sized asteroid
 			}
 		}
 
-		player.draw(m_window);
+		player.draw(m_window); // draws the player
 
 		for (int i = 0; i < MAX_SMALL_ASTEROIDS; i++)
 		{
-			smallAsteroids[i].draw(m_window);
+			smallAsteroids[i].draw(m_window); // draws the small asteroids
 		}
 		pause.draw(m_window);
 	}
@@ -557,34 +557,33 @@ void Game::setupFontAndText() // sets up fonts and texts
 		std::cout << "problem loading arial black font" << std::endl;
 	}
 
-	healthMessage.setFont(m_ArialBlackfont);
+	healthMessage.setFont(m_ArialBlackfont); // sets the font for health message
 	
-	healthMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	healthMessage.setPosition(5.0f, 30.0f);
-	healthMessage.setCharacterSize(25);
-	healthMessage.setOutlineColor(sf::Color::Red);
-	healthMessage.setFillColor(sf::Color::Black);
-	healthMessage.setOutlineThickness(3.0f);
+	healthMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);  // makes the health message look nice
+	healthMessage.setPosition(5.0f, 30.0f); // sets the position of health text
+	healthMessage.setCharacterSize(25); // sets the character size of the health text
+	healthMessage.setOutlineColor(sf::Color::Red); // sets the outline colour
+	healthMessage.setFillColor(sf::Color::Black); // sets the fill colour
+	healthMessage.setOutlineThickness(3.0f); // sets the thickness
 
-	scoreMessage.setFont(m_ArialBlackfont);
+	scoreMessage.setFont(m_ArialBlackfont); // sets the font for the score message 
+	scoreMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold); // makes the score message look nice
+	scoreMessage.setPosition(5.0f, 70.0f); // sets the position of score text
+	scoreMessage.setCharacterSize(25); // sets the character size of the score text
+	scoreMessage.setOutlineColor(sf::Color::Red); // sets the outline colour
+	scoreMessage.setFillColor(sf::Color::Black); // sets the fill colour
+	scoreMessage.setOutlineThickness(3.0f); // sets the thickness
 
-	scoreMessage.setStyle(sf::Text::Underlined | sf::Text::Italic | sf::Text::Bold);
-	scoreMessage.setPosition(5.0f, 70.0f);
-	scoreMessage.setCharacterSize(25);
-	scoreMessage.setOutlineColor(sf::Color::Red);
-	scoreMessage.setFillColor(sf::Color::Black);
-	scoreMessage.setOutlineThickness(3.0f);
+	splash.init(m_ArialBlackfont); // sets the font for the splash screen
+	license.init(m_ArialBlackfont); // sets the font for the license screen
+	menu.init(m_ArialBlackfont); // sets the font for the menu
+	help.init(m_ArialBlackfont); // sets the font the help
+	pause.init(m_ArialBlackfont); // sets the font the pause screen
+	upgrade.init(m_ArialBlackfont); // sets the font upgrade screen
+	upgradeHelp.init(m_ArialBlackfont); // sets the font for the upgradehelp screen
+	pickUp.init(m_ArialBlackfont); // sets the font for the pick up  screen
 
-	splash.init(m_ArialBlackfont);
-	license.init(m_ArialBlackfont);
-	menu.init(m_ArialBlackfont);
-	help.init(m_ArialBlackfont);
-	pause.init(m_ArialBlackfont);
-	upgrade.init(m_ArialBlackfont);
-	upgradeHelp.init(m_ArialBlackfont);
-	pickUp.init(m_ArialBlackfont);
-
-	controlHelp.init(m_ArialBlackfont);
+	controlHelp.init(m_ArialBlackfont); // sets the font
 
 }
 
@@ -653,7 +652,7 @@ void Game::bulletMove()
 	{
 		if (press == true)
 		{
-			bullet[i].bullets.move(bullet[i].bulletVelocity);
+			bullet[i].bullets.move(bullet[i].bulletVelocity); // moves the bullet
 		}
 
 	}
