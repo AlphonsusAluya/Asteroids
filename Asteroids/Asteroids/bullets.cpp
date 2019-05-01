@@ -18,7 +18,7 @@ sf::Sprite Bullets::getBody()
 
 void Bullets::loadContent()
 {
-	if (!texture.loadFromFile("ASSETS/IMAGES/bullet32.png"))
+	if (!texture.loadFromFile("ASSETS/IMAGES/bullet16.png"))
 	{
 		std::cout << "error bullets";
 	}

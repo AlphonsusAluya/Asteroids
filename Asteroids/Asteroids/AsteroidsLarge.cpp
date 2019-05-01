@@ -60,12 +60,14 @@ void AsteroidsLarge::checkBorders()
 	if (location.x > 810 || location.x < -10)
 	{
 		location = originalLocation;
+		wasShot = false;
 	}
 
 
 	if (location.y > 810 || location.y < -10)
 	{
 		location = originalLocation;
+		wasShot = false;
 	}
 }
 
